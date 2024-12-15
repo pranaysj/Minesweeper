@@ -4,7 +4,6 @@
 #include "../../header/GameWindow/GameWindowManager.h"
 #include "../../header/Event/EventPollingManager.h"
 #include "../../header/UI/SplashScreenManager/SplashScreenManager.h"
-#include "../../header/UI/MainMenu/MainMenuManager.h"
 #include "../../header/GameLoop/Gameplay/GameplayManager.h"
 #include "../../header/GameLoop/Gameplay/Board.h"
 #include "../../header/Sound/SoundManager.h"
@@ -27,7 +26,6 @@ private:
     GameWindowManager* windowManager;
     EventPollingManager* eventManager;
     SplashScreenManager* splashScreenManager;
-    MainMenuManager* mainMenuManager;
     GameplayManager* gameplayManager;
     GameState currentState;
     Board* board;

@@ -2,7 +2,6 @@
 #include "../../header/GameLoop/Gameplay/Board.h"
 #include "../../header/Event/EventPollingManager.h"
 #include "../../header/Time/TimeManager.h"
-#include "../../header/UI/GameplayUI/GameplayUI.h"
 #include "../../header/Sound/SoundManager.h"
 #include <SFML/Graphics.hpp>
 
