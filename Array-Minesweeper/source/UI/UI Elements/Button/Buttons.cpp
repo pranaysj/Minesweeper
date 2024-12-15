@@ -17,48 +17,12 @@ namespace UIElements {
         buttonSprite.setScale(width / buttonTexture.getSize().x, height / buttonTexture.getSize().y);
     }
 
-    void Button::UpdateState(Event::EventPollingManager& eventManager, const sf::RenderWindow& window) {
-
-        if (eventManager.PressedLeftMouseButton() && IsMouseOnSprite(eventManager, window)) 
-        {
-            if (callback_function) callback_function(ButtonType::LEFT_MOUSE_BUTTON);
-        }
-        else if (eventManager.PressedRightMouseButton() && IsMouseOnSprite(eventManager, window)) {
-            if (callback_function) callback_function(ButtonType::RIGHT_MOUSE_BUTTON);
-        }
-    }
-
-    bool Button::IsMouseOnSprite(Event::EventPollingManager& eventManager, const sf::RenderWindow& window)
-    {
-        sf::Vector2i mouse_position = eventManager.GetMousePosition(window);
-        return buttonSprite.getGlobalBounds().contains(static_cast<float>(mouse_position.x), static_cast<float>(mouse_position.y));
-    }
-
     void Button::Render(sf::RenderWindow& window) const {
         window.draw(buttonSprite);
     }
 
-    void Button::ResetButtonState()
-    {
-        SetButtonsState(ButtonState::RELEASED);
-    }
-
-    void Button::SetButtonsState(ButtonState buttonState)
-    {
-        this->buttonState = buttonState;
-    }
-
-    ButtonState Button::GetButtonState()
-    {
-        return this->buttonState;
-    }
-
     void Button::SetTextureRect(const sf::IntRect& rect) {
         buttonSprite.setTextureRect(rect);
-    }
-
-    void Button::RegisterCallbackFunction(CallbackFunction button_callback) {
-        callback_function = button_callback;
     }
 }
 

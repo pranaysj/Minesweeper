@@ -5,8 +5,6 @@
 #include "../../header/Sound/SoundManager.h"
 #include <SFML/Graphics.hpp>
 
-
-using namespace UI;
 namespace Gameplay
 {
     enum class GameResult
@@ -32,14 +30,6 @@ namespace Gameplay
 
         Board *board;
         GameResult gameResult = GameResult::NONE;
-        GameplayUI gameplayUI;
-
-        void UpdateRemainingTime();
-        void ProcessTimeOver();
-        void HandleGameplay(Event::EventPollingManager& eventManager, sf::RenderWindow& window);
-
-        void GameWon();
-        void GameLost();
 
     public:
         GameplayManager();
@@ -47,18 +37,6 @@ namespace Gameplay
 
         void Initialize();
         void InitializeBackgroundImage();
-
-        void Update(Event::EventPollingManager& eventManager, sf::RenderWindow& window);
         void Render(sf::RenderWindow& window);
-
-        void CheckGameWin();
-        void CheckRestart();
-        void ProcessGameResult();
-
-        int GetMinesCount() const;
-        float GetRemainingTime() const;
-
-        GameResult GetGameResult();
-        void SetGameResult(GameResult gameResult);
     };
 }

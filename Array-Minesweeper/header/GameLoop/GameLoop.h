@@ -32,8 +32,6 @@ private:
 
     void Initialize();
     void HandleStates();
-    void HandleMainMenuButtons();
-
 
 public:
     GameLoop();
