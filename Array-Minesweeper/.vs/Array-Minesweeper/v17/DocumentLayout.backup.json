@@ -104,7 +104,7 @@
               "RelativeDocumentMoniker": "header\\GameLoop\\Gameplay\\Board.h",
               "ToolTip": "C:\\Users\\aryan\\Desktop\\Current Project\\Arrays\\Array-Minesweeper\\header\\GameLoop\\Gameplay\\Board.h",
               "RelativeToolTip": "header\\GameLoop\\Gameplay\\Board.h",
-              "ViewState": "AgIAABIAAAAAAAAAAAAowBcAAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAowBwAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2024-11-11T13:04:38.214Z",
               "EditorCaption": ""
@@ -177,7 +177,7 @@
               "RelativeDocumentMoniker": "source\\GameLoop\\Gameplay\\Board.cpp",
               "ToolTip": "C:\\Users\\aryan\\Desktop\\Current Project\\Arrays\\Array-Minesweeper\\source\\GameLoop\\Gameplay\\Board.cpp",
               "RelativeToolTip": "source\\GameLoop\\Gameplay\\Board.cpp",
-              "ViewState": "AgIAACIAAAAAAAAAAAAMwCIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAcwD0AAABEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-11-11T13:24:00.364Z",
               "EditorCaption": ""
@@ -192,8 +192,7 @@
               "RelativeToolTip": "source\\GameLoop\\Gameplay\\Cell.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-11-11T13:23:32.875Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-11T13:23:32.875Z"
             },
             {
               "$type": "Document",
