@@ -35,8 +35,7 @@ namespace Gameplay
         // Cell data members
         CellState currentCellState;
         CellType cellType;
-        sf::Vector2i position;
-        int mines_around;
+        sf::Vector2f position;
 
         // View and Rendering
         const float cellTopOffset = 274.f;
@@ -53,13 +52,13 @@ namespace Gameplay
         void SetCellTexture();
 
     public:
-        Cell(float width, float height, sf::Vector2i position);
+        Cell(float width, float height, sf::Vector2f position);
         ~Cell() = default;
 
         sf::Vector2f GetCellScreenPosition(float width, float height) const;
 
         // Initialization and rendering functions
-        void Initialize(float width, float height, sf::Vector2i position);
+        void Initialize(float width, float height, sf::Vector2f position);
         void Render(sf::RenderWindow& window);
     };
 }

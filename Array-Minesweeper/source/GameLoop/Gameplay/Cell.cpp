@@ -4,12 +4,12 @@
 
 namespace Gameplay
 {
-    Cell::Cell(float width, float height, sf::Vector2i position)
+    Cell::Cell(float width, float height, sf::Vector2f position)
     {
         Initialize(width, height, position);
     }
 
-    void Cell::Initialize(float width, float height, sf::Vector2i position)
+    void Cell::Initialize(float width, float height, sf::Vector2f position)
     {
         this->position = position;
         currentCellState = CellState::HIDDEN;
