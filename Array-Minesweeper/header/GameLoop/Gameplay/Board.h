@@ -26,6 +26,8 @@ namespace Gameplay
 
         static const int numberOfRows = 9;
         static const int numberOfColumns = 9;
+        static const int minesCount = 9;
+
         Cell* board[numberOfRows][numberOfColumns];
 
         
@@ -49,6 +51,14 @@ namespace Gameplay
         // Private helper methods
         void CreateBoard();
         void InitializeBoardImage();
+
+        void PopulateBoard();
+        void PopulateMines();
+        void PopulateCells();
+
+        int CountMinesAround(sf::Vector2i cell_position);
+
+        bool IsValidCellPosition(sf::Vector2i cell_position);
 
     public:
         Board();

@@ -47,4 +47,14 @@ namespace Gameplay
         SetCellTexture();
         if (cellButton) cellButton->Render(window);
     }
+
+    CellType Cell::GetCellType()
+    {
+        return cellType;
+    }
+
+    void Cell::SetCellType(CellType type)
+    {
+        cellType = type;
+    }
 }

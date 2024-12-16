@@ -61,5 +61,8 @@ namespace Gameplay
         // Initialization and rendering functions
         void Initialize(float width, float height, sf::Vector2i position);
         void Render(sf::RenderWindow& window);
+
+        CellType GetCellType();
+        void SetCellType(CellType type);
     };
 }
