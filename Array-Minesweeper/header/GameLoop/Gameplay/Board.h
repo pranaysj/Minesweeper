@@ -22,8 +22,10 @@ namespace Gameplay
 
         // State and View Members
         BoardState boardState;
-        Cell* board;
         int flaggedCells;
+
+        static const int numberOfColumns = 9;
+        Cell* board[numberOfColumns];
 
         
         const float horizontalCellPadding = 115.f;
