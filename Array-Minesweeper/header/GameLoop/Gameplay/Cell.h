@@ -8,6 +8,7 @@ using namespace UIElements;
 
 namespace Gameplay
 {
+    class Board;
     enum class CellState
     {
         HIDDEN,
@@ -35,6 +36,7 @@ namespace Gameplay
         // Cell data members
         CellState currentCellState;
         CellType cellType;
+        Board* board;
         sf::Vector2i position;
         int mines_around;
 
@@ -44,25 +46,46 @@ namespace Gameplay
         const int tileSize = 32;
         const int sliceCount = 12;
         const std::string cellTexturePath = "assets/textures/cells.jpeg";
-        
-        
-        Button *cellButton;
+
+
+        Button* cellButton;
 
         // Private helper functions
-        
+
         void SetCellTexture();
 
     public:
-        Cell(float width, float height, sf::Vector2i position);
+        Cell(float width, float height, sf::Vector2i position, Board* board);
         ~Cell() = default;
 
         sf::Vector2f GetCellScreenPosition(float width, float height) const;
 
         // Initialization and rendering functions
         void Initialize(float width, float height, sf::Vector2i position);
+        void Update(Event::EventPollingManager& eventManager, sf::RenderWindow& window);
         void Render(sf::RenderWindow& window);
+        void RegisterCellButtonCallback();
+        void CellButtonCallback(ButtonType button_type);
 
-        CellType GetCellType();
+        // Cell state and type management
+        CellState GetCellState() const;
+        void SetCellState(CellState state);
+
+        CellType GetCellType() const;
         void SetCellType(CellType type);
+
+        void SetCellPosition(sf::Vector2i grid_position);
+        sf::Vector2i GetCellPosition();
+
+        int GetMinesAround() const;
+        void SetMinesAround(int mine_count);
+
+        float GetCellLeftOffset() const;
+        float GetCellTopOffset() const;
+
+        void Reset();
+        bool CanOpenCell() const;
+        void ToggleFlag();
+        void Open();
     };
 }

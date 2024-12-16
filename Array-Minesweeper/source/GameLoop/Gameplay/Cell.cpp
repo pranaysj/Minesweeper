@@ -4,17 +4,18 @@
 
 namespace Gameplay
 {
-    Cell::Cell(float width, float height, sf::Vector2i position)
+    Cell::Cell(float width, float height, sf::Vector2i position, Board* board)
     {
         Initialize(width, height, position);
+        this->board = board;
     }
 
     void Cell::Initialize(float width, float height, sf::Vector2i position)
     {
         this->position = position;
-        currentCellState = CellState::HIDDEN;
         sf::Vector2f cellScreenPosition = GetCellScreenPosition(width, height);
         cellButton = new Button(cellTexturePath, cellScreenPosition, width * sliceCount, height);
+        RegisterCellButtonCallback();
     }
 
     sf::Vector2f Cell::GetCellScreenPosition(float width, float height) const
@@ -42,13 +43,69 @@ namespace Gameplay
         }
     }
 
+    void Cell::Update(Event::EventPollingManager& eventManager, sf::RenderWindow& window)
+    {
+        if (cellButton) cellButton->UpdateState(eventManager, window);
+    }
+
     void Cell::Render(sf::RenderWindow& window)
     {
         SetCellTexture();
         if (cellButton) cellButton->Render(window);
     }
 
-    CellType Cell::GetCellType()
+    void Cell::RegisterCellButtonCallback()
+    {
+        cellButton->RegisterCallbackFunction([this](ButtonType buttonType) {
+            CellButtonCallback(buttonType);
+            });
+    }
+
+    void Cell::CellButtonCallback(ButtonType button_type)
+    {
+        board->OnCellButtonClicked(GetCellPosition(), button_type);
+    }
+
+    void Cell::Reset()
+    {
+        currentCellState = CellState::HIDDEN;
+        cellType = CellType::EMPTY;
+        mines_around = 0;
+    }
+
+    bool Cell::CanOpenCell() const
+    {
+        return currentCellState != CellState::FLAGGED && currentCellState != CellState::OPEN;
+    }
+
+    void Cell::ToggleFlag()
+    {
+        if (currentCellState == CellState::HIDDEN)
+        {
+            currentCellState = CellState::FLAGGED;
+        }
+        else if (currentCellState == CellState::FLAGGED)
+        {
+            currentCellState = CellState::HIDDEN;
+        }
+    }
+
+    void Cell::Open()
+    {
+        SetCellState(CellState::OPEN);
+    }
+
+    CellState Cell::GetCellState() const
+    {
+        return currentCellState;
+    }
+
+    void Cell::SetCellState(CellState state)
+    {
+        currentCellState = state;
+    }
+
+    CellType Cell::GetCellType() const
     {
         return cellType;
     }
@@ -56,5 +113,36 @@ namespace Gameplay
     void Cell::SetCellType(CellType type)
     {
         cellType = type;
+    }
+
+
+    void Cell::SetCellPosition(sf::Vector2i grid_position)
+    {
+        position = grid_position;
+    }
+
+    sf::Vector2i Cell::GetCellPosition()
+    {
+        return position;
+    }
+
+    int Cell::GetMinesAround() const
+    {
+        return mines_around;
+    }
+
+    void Cell::SetMinesAround(int mine_count)
+    {
+        mines_around = mine_count;
+    }
+
+    float Cell::GetCellLeftOffset() const
+    {
+        return cellLeftOffset;
+    }
+
+    float Cell::GetCellTopOffset() const
+    {
+        return cellTopOffset;
     }
 }

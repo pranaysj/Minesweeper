@@ -37,6 +37,7 @@ void GameLoop::HandleStates() {
 
     case GameState::GAMEPLAY:
         eventManager->Update();
+        gameplayManager->Update(*eventManager, *windowManager->GetGameWindow());
         gameplayManager->Render(*windowManager->GetGameWindow());
         break;
 

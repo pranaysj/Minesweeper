@@ -1,7 +1,6 @@
 #pragma once
 #include "../../header/GameLoop/Gameplay/Board.h"
 #include "../../header/Event/EventPollingManager.h"
-#include "../../header/Time/TimeManager.h"
 #include "../../header/Sound/SoundManager.h"
 #include <SFML/Graphics.hpp>
 
@@ -28,8 +27,13 @@ namespace Gameplay
 
         std::string backgroundTexturePath = "assets/textures/minesweeper_bg.png";
 
-        Board *board;
+        Board* board;
         GameResult gameResult = GameResult::NONE;
+
+        void HandleGameplay(Event::EventPollingManager& eventManager, sf::RenderWindow& window);
+
+        void GameWon();
+        void GameLost();
 
     public:
         GameplayManager();
@@ -37,6 +41,17 @@ namespace Gameplay
 
         void Initialize();
         void InitializeBackgroundImage();
+
+        void Update(Event::EventPollingManager& eventManager, sf::RenderWindow& window);
         void Render(sf::RenderWindow& window);
+
+        void CheckGameWin();
+        void ProcessGameResult();
+
+        int GetMinesCount() const;
+        float GetRemainingTime() const;
+
+        GameResult GetGameResult();
+        void SetGameResult(GameResult gameResult);
     };
 }
