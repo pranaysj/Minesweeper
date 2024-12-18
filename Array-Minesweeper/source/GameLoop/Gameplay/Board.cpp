@@ -43,11 +43,11 @@ namespace Gameplay
 
     float Board::GetCellWidthInBoard() const
     {
-        return (boardWidth - horizontalCellOffset) / 9;
+        return (boardWidth - horizontalCellOffset) / numberOfColumns;
     }
 
     float Board::GetCellHeightInBoard() const
     {
-        return (boardHeight - verticalCellOffset) / 9;
+        return (boardHeight - verticalCellOffset) / numberOfRows;
     }
 }

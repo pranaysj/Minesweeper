@@ -15,6 +15,9 @@ namespace Gameplay
     private:
 
         Cell* board;
+
+        const int numberOfRows = 9;
+        const int numberOfColumns = 9;
         
         const float horizontalCellOffset = 115.f;
         const float verticalCellOffset = 329.f;
