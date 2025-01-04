@@ -6,55 +6,56 @@ namespace Gameplay
 {
     Cell::Cell(float width, float height, sf::Vector2i position)
     {
-        Initialize(width, height, position);
+        initialize(width, height, position);
     }
 
-    void Cell::Initialize(float width, float height, sf::Vector2i position)
+    void Cell::initialize(float width, float height, sf::Vector2i position)
     {
         this->position = position;
-        currentCellState = CellState::HIDDEN;
-        sf::Vector2f cellScreenPosition = GetCellScreenPosition(width, height);
-        cellButton = new Button(cellTexturePath, cellScreenPosition, width * sliceCount, height);
+        sf::Vector2f cellScreenPosition = getCellScreenPosition(width, height);
+        cell_button = new Button(cell_texture_path, cellScreenPosition, width * slice_count, height);
+        current_cell_state = CellState::OPEN;
     }
 
-    sf::Vector2f Cell::GetCellScreenPosition(float width, float height) const
+    sf::Vector2f Cell::getCellScreenPosition(float width, float height) const
     {
-        float xScreenPosition = cellLeftOffset + position.x * width;
-        float yScreenPosition = cellTopOffset + position.y * height;
+        float xScreenPosition = cell_left_offset + position.x * width;
+        float yScreenPosition = cell_top_offset + position.y * height;
         return sf::Vector2f(xScreenPosition, yScreenPosition);
     }
 
-    void Cell::SetCellTexture()
+    void Cell::render(sf::RenderWindow& window)
     {
-        int index = static_cast<int>(cellType);
+        setCellTexture();
+        if (cell_button)
+            cell_button->render(window);
+    }
 
-        switch (currentCellState)
+    void Cell::setCellTexture()
+    {
+        int index = static_cast<int>(cell_type);
+
+        switch (current_cell_state)
         {
         case CellState::HIDDEN:
-            cellButton->SetTextureRect(sf::IntRect(10 * tileSize, 0, tileSize, tileSize));
+            cell_button->setTextureRect(sf::IntRect(10 * tile_size, 0, tile_size, tile_size));
             break;
         case CellState::OPEN:
-            cellButton->SetTextureRect(sf::IntRect(index * tileSize, 0, tileSize, tileSize));
+            cell_button->setTextureRect(sf::IntRect(index * tile_size, 0, tile_size, tile_size));
             break;
         case CellState::FLAGGED:
-            cellButton->SetTextureRect(sf::IntRect(11 * tileSize, 0, tileSize, tileSize));
+            cell_button->setTextureRect(sf::IntRect(11 * tile_size, 0, tile_size, tile_size));
             break;
         }
     }
 
-    void Cell::Render(sf::RenderWindow& window)
-    {
-        SetCellTexture();
-        if (cellButton) cellButton->Render(window);
-    }
+    CellState Cell::getCellState() const { return current_cell_state; }
 
-    CellType Cell::GetCellType()
-    {
-        return cellType;
-    }
+    void Cell::setCellState(CellState state) { current_cell_state = state; }
 
-    void Cell::SetCellType(CellType type)
-    {
-        cellType = type;
-    }
+    CellType Cell::getCellType() const { return cell_type; }
+
+    void Cell::setCellType(CellType type) { cell_type = type; }
+
+    sf::Vector2i Cell::getCellPosition() { return position; }
 }

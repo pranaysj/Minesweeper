@@ -6,17 +6,19 @@ namespace Gameplay
 {
     Board::Board()
     {
-        Initialize();
+        initialize();
     }
 
-    void Board::Initialize()
+    Board::~Board() { deleteBoard(); }
+    
+    void Board::initialize()
     {
-        InitializeBoardImage();
-        CreateBoard();
-        PopulateBoard();
+        initializeBoardImage();
+        createBoard();
+        populateBoard();
     }
 
-    void Board::InitializeBoardImage()
+    void Board::initializeBoardImage()
     {
         if (!boardTexture.loadFromFile(boardTexturePath))
         {
@@ -28,13 +30,13 @@ namespace Gameplay
         boardSprite.setScale(boardWidth / boardTexture.getSize().x, boardHeight / boardTexture.getSize().y);
     }
 
-    void Board::PopulateBoard()
+    void Board::populateBoard()
     {
-        PopulateMines();
-        PopulateCells();
+        populateMines();
+        populateCells();
     }
 
-    void Board::PopulateMines()
+    void Board::populateMines()
     {
         std::uniform_int_distribution<int> x_dist(0, numberOfColumns - 1);
         std::uniform_int_distribution<int> y_dist(0, numberOfRows - 1);
@@ -45,27 +47,27 @@ namespace Gameplay
             int x = x_dist(randomEngine);
             int y = y_dist(randomEngine);
 
-            board[x][y]->SetCellType(CellType::MINE);
+            board[x][y]->setCellType(CellType::MINE);
             ++mines_placed;
         }
     }
 
-    void Board::PopulateCells()
+    void Board::populateCells()
     {
         for (int row = 0; row < numberOfRows; ++row)
         {
             for (int col = 0; col < numberOfColumns; ++col)
             {
-                if (board[row][col]->GetCellType() != CellType::MINE)
+                if (board[row][col]->getCellType() != CellType::MINE)
                 {
-                    int mines_around = CountMinesAround(sf::Vector2i(row, col));
-                    board[row][col]->SetCellType(static_cast<CellType>(mines_around));
+                    int mines_around = countMinesAround(sf::Vector2i(row, col));
+                    board[row][col]->setCellType(static_cast<CellType>(mines_around));
                 }
             }
         }
     }
 
-    int Board::CountMinesAround(sf::Vector2i cell_position)
+    int Board::countMinesAround(sf::Vector2i cell_position)
     {
         int mines_around = 0;
 
@@ -73,10 +75,10 @@ namespace Gameplay
         {
             for (int b = -1; b <= 1; ++b)
             {
-                if ((a == 0 && b == 0) || !IsValidCellPosition(sf::Vector2i(cell_position.x + a, cell_position.y + b)))
+                if ((a == 0 && b == 0) || !isValidCellPosition(sf::Vector2i(cell_position.x + a, cell_position.y + b)))
                     continue;
 
-                if (board[cell_position.x + a][cell_position.y + b]->GetCellType() == CellType::MINE)
+                if (board[cell_position.x + a][cell_position.y + b]->getCellType() == CellType::MINE)
                     mines_around++;
             }
         }
@@ -84,15 +86,15 @@ namespace Gameplay
         return mines_around;
     }
 
-    bool Board::IsValidCellPosition(sf::Vector2i cell_position) {
+    bool Board::isValidCellPosition(sf::Vector2i cell_position) {
         return (cell_position.x >= 0 && cell_position.y >= 0 &&
             cell_position.x < numberOfColumns && cell_position.y < numberOfRows);
     }
 
-    void Board::CreateBoard()
+    void Board::createBoard()
     {
-        float cell_width = GetCellWidthInBoard();
-        float cell_height = GetCellHeightInBoard();
+        float cell_width = getCellWidthInBoard();
+        float cell_height = getCellHeightInBoard();
         for (int row = 0; row < numberOfRows; ++row)
         {
             for (int col = 0; col < numberOfColumns; ++col)
@@ -102,24 +104,31 @@ namespace Gameplay
         }
     }
 
-    void Board::Render(sf::RenderWindow& window)
+    void Board::deleteBoard()
+    {
+        for (int row = 0; row < numberOfRows; ++row)
+            for (int col = 0; col < numberOfColumns; ++col)
+                delete board[row][col];
+    }
+
+    void Board::render(sf::RenderWindow& window)
     {
         window.draw(boardSprite);
         for (int row = 0; row < numberOfRows; ++row)
         {
             for (int col = 0; col < numberOfColumns; ++col)
             {
-                board[row][col]->Render(window);
+                board[row][col]->render(window);
             }
         }
     }
 
-    float Board::GetCellWidthInBoard() const
+    float Board::getCellWidthInBoard() const
     {
         return (boardWidth - horizontalCellPadding) / numberOfColumns;
     }
 
-    float Board::GetCellHeightInBoard() const
+    float Board::getCellHeightInBoard() const
     {
         return (boardHeight - verticalCellPadding) / numberOfColumns;
     }
