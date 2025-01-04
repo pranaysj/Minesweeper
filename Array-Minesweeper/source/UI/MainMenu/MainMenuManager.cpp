@@ -51,7 +51,7 @@ namespace UI {
     void MainMenuManager::registerButtonCallbacks()
     {
         play_button->registerCallbackFunction(std::bind(&MainMenuManager::playButtonCallback, this, std::placeholders::_1));
-        quit_button->registerCallbackFunction(std::bind(&MainMenuManager::playButtonCallback, this, std::placeholders::_1));
+        quit_button->registerCallbackFunction(std::bind(&MainMenuManager::quitButtonCallback, this, std::placeholders::_1));
     }
 
     void MainMenuManager::playButtonCallback(MouseButtonType mouse_button_type)
