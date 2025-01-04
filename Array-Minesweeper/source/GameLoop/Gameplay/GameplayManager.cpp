@@ -5,34 +5,34 @@ namespace Gameplay
 {
     GameplayManager::GameplayManager()
     {
-        Initialize();
+        initialize();
     }
 
-    void GameplayManager::Initialize()
+    void GameplayManager::initialize()
     {
-        InitializeBackgroundImage();
+        initializeBackgroundImage();
+        initializeVariables();
+    }
+
+    void GameplayManager::initializeVariables()
+    {
         board = new Board();
     }
 
-    void GameplayManager::InitializeBackgroundImage()
+    void GameplayManager::initializeBackgroundImage()
     {
-        if (!backgroundTexture.loadFromFile(backgroundTexturePath))
+        if (!background_texture.loadFromFile(background_texture_path))
         {
             std::cerr << "Failed to load background texture!" << std::endl;
             return;
         }
-        backgroundSprite.setTexture(backgroundTexture);
-        backgroundSprite.setColor(sf::Color(255, 255, 255, backgroundAlpha));
+        background_sprite.setTexture(background_texture);
+        background_sprite.setColor(sf::Color(255, 255, 255, background_alpha));
     }
 
-    void GameplayManager::Update(Event::EventPollingManager& eventManager, sf::RenderWindow& window)
+    void GameplayManager::render(sf::RenderWindow& window)
     {
-        
-    }
-
-    void GameplayManager::Render(sf::RenderWindow& window)
-    {
-        window.draw(backgroundSprite);
-        board->Render(window);
+        window.draw(background_sprite);
+        board->render(window);
     }
 }

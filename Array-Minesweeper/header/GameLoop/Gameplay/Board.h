@@ -22,11 +22,11 @@ namespace Gameplay
         sf::Texture boardTexture;
         sf::Sprite boardSprite;
 
-        void InitializeBoardImage();
-        void Initialize();
+        void initializeBoardImage();
+        void initialize();
 
     public:
         Board();
-        void Render(sf::RenderWindow& window);
+        void render(sf::RenderWindow& window);
     };
 }

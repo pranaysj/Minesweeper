@@ -1,14 +1,12 @@
 #pragma once
 #include "../../header/GameLoop/Gameplay/Board.h"
 #include "../../header/Event/EventPollingManager.h"
-#include "../../header/Time/TimeManager.h"
-#include "../../header/Sound/SoundManager.h"
 #include <SFML/Graphics.hpp>
-
-
 
 namespace Gameplay
 {
+    using namespace Event;
+
     enum class GameResult
     {
         NONE,
@@ -19,23 +17,23 @@ namespace Gameplay
     class GameplayManager
     {
     private:
-        const float backgroundAlpha = 85.f;
+        const float background_alpha = 85.f;
+        sf::Texture background_texture;
+        sf::Sprite background_sprite;
+        std::string background_texture_path = "assets/textures/minesweeper_bg.png";
 
-        sf::Texture backgroundTexture;
-        sf::Sprite backgroundSprite;
+        Board* board;
 
-        std::string backgroundTexturePath = "assets/textures/minesweeper_bg.png";
 
-        Board *board;
+        void initialize();
+        void initializeBackgroundImage();
+        void initializeVariables();
+
 
     public:
         GameplayManager();
         ~GameplayManager() = default;
 
-        void Initialize();
-        void InitializeBackgroundImage();
-
-        void Update(Event::EventPollingManager& eventManager, sf::RenderWindow& window);
-        void Render(sf::RenderWindow& window);
+        void render(sf::RenderWindow& window);
     };
 }

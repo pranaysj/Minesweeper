@@ -6,15 +6,15 @@ namespace Gameplay
 {
     Board::Board()
     {
-        Initialize();
+       initialize();
     }
 
-    void Board::Initialize()
+    void Board::initialize()
     {
-        InitializeBoardImage();
+        initializeBoardImage();
     }
 
-    void Board::InitializeBoardImage()
+    void Board::initializeBoardImage()
     {
         if (!boardTexture.loadFromFile(boardTexturePath))
         {
@@ -26,7 +26,7 @@ namespace Gameplay
         boardSprite.setScale(boardWidth / boardTexture.getSize().x, boardHeight / boardTexture.getSize().y);
     }
 
-    void Board::Render(sf::RenderWindow& window)
+    void Board::render(sf::RenderWindow& window)
     {
         window.draw(boardSprite);
     }
