@@ -1,33 +1,38 @@
-#include "../../header/GameLoop/Gameplay/GameplayManager.h"
 #include <iostream>
+#include "../../header/GameLoop/Gameplay/GameplayManager.h"
+#include "../../../header/Time/TimeManager.h"
 
 namespace Gameplay
 {
-    GameplayManager::GameplayManager()
+    GameplayManager::GameplayManager() { initialize(); }
+
+    void GameplayManager::initialize()
     {
-        Initialize();
+        initializeBackgroundImage();
+        initializeVariables();
     }
 
-    void GameplayManager::Initialize()
+    void GameplayManager::initializeBackgroundImage()
     {
-        InitializeBackgroundImage();
-        board = new Board();
-    }
-
-    void GameplayManager::InitializeBackgroundImage()
-    {
-        if (!backgroundTexture.loadFromFile(backgroundTexturePath))
+        if (!background_texture.loadFromFile(background_texture_path))
         {
             std::cerr << "Failed to load background texture!" << std::endl;
             return;
         }
-        backgroundSprite.setTexture(backgroundTexture);
-        backgroundSprite.setColor(sf::Color(255, 255, 255, backgroundAlpha));
+
+        background_sprite.setTexture(background_texture);
+        background_sprite.setColor(sf::Color(255, 255, 255, background_alpha));
     }
 
-    void GameplayManager::Render(sf::RenderWindow& window)
+    void GameplayManager::initializeVariables()
     {
-        window.draw(backgroundSprite);
-        board->Render(window);
+        board = new Board();
+    }
+
+
+    void GameplayManager::render(sf::RenderWindow& window)
+    {
+        window.draw(background_sprite);
+        board->render(window);
     }
 }
