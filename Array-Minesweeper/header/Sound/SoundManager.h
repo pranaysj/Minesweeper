@@ -32,7 +32,7 @@ namespace Sound
 
     public:
         // Initialization and loading functions
-        static void Initialize();
+        static void initialize();
         static void PlaySound(SoundType soundType);
         static void PlayBackgroundMusic();
 

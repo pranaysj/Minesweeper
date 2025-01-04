@@ -32,34 +32,33 @@ namespace Gameplay
     class Cell
     {
     private:
-        // Cell data members
-        CellState currentCellState;
-        CellType cellType;
+        CellState current_cell_state;
+        CellType cell_type;
         sf::Vector2i position;
         int mines_around;
 
-        // View and Rendering
-        const float cellTopOffset = 274.f;
-        const float cellLeftOffset = 583.f;
-        const int tileSize = 32;
-        const int sliceCount = 12;
-        const std::string cellTexturePath = "assets/textures/cells.jpeg";
-        
-        
-        Button *cellButton;
+        const float cell_top_offset = 274.f;
+        const float cell_left_offset = 583.f;
+        const int tile_size = 32;
+        const int slice_count = 12;
+        const std::string cell_texture_path = "assets/textures/cells.jpeg";
+        Button* cell_button;
 
-        // Private helper functions
-        
-        void SetCellTexture();
+        void initialize(float width, float height, sf::Vector2i position);
+        sf::Vector2f getCellScreenPosition(float width, float height) const;
+        void setCellTexture();
 
     public:
         Cell(float width, float height, sf::Vector2i position);
         ~Cell() = default;
 
-        sf::Vector2f GetCellScreenPosition(float width, float height) const;
+        void render(sf::RenderWindow& window);
 
-        // Initialization and rendering functions
-        void Initialize(float width, float height, sf::Vector2i position);
-        void Render(sf::RenderWindow& window);
+        //Getters, Setters
+        CellState getCellState() const;
+        void setCellState(CellState state);
+        CellType getCellType() const;
+        void setCellType(CellType type);
+        sf::Vector2i getCellPosition();
     };
 }
