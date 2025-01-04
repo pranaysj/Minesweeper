@@ -6,16 +6,21 @@ namespace Gameplay
 {
     Board::Board()
     {
-        Initialize();
+        initialize();
     }
 
-    void Board::Initialize()
+    Board::~Board()
     {
-        InitializeBoardImage();
-        CreateBoard();
+        deleteBoard();
     }
 
-    void Board::InitializeBoardImage()
+    void Board::initialize()
+    {
+        initializeBoardImage();
+        createBoard();
+    }
+
+    void Board::initializeBoardImage()
     {
         if (!boardTexture.loadFromFile(boardTexturePath))
         {
@@ -27,29 +32,36 @@ namespace Gameplay
         boardSprite.setScale(boardWidth / boardTexture.getSize().x, boardHeight / boardTexture.getSize().y);
     }
 
-    void Board::CreateBoard()
+    void Board::createBoard()
     {
-        float cell_width = GetCellWidthInBoard();
-        float cell_height = GetCellHeightInBoard();
+        float cell_width = getCellWidthInBoard();
+        float cell_height = getCellHeightInBoard();
         for (int col = 0; col < numberOfColumns; ++col) {
         board[col] = new Cell(cell_width, cell_height, sf::Vector2i(col, 0));
         }
     }
 
-    void Board::Render(sf::RenderWindow& window)
+    void Board::deleteBoard()
     {
-        window.draw(boardSprite);
         for (int col = 0; col < numberOfColumns; ++col) {
-            board[col]->Render(window);
+            delete board[col];
         }
     }
 
-    float Board::GetCellWidthInBoard() const
+    void Board::render(sf::RenderWindow& window)
+    {
+        window.draw(boardSprite);
+        for (int col = 0; col < numberOfColumns; ++col) {
+            board[col]->render(window);
+        }
+    }
+
+    float Board::getCellWidthInBoard() const
     {
         return (boardWidth - horizontalCellPadding) / numberOfColumns;
     }
 
-    float Board::GetCellHeightInBoard() const
+    float Board::getCellHeightInBoard() const
     {
         return (boardHeight - verticalCellPadding) / numberOfColumns;
     }

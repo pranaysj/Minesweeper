@@ -18,7 +18,7 @@ namespace Sound
 
     float SoundManager::backgroundMusicVolume = 8.0f;
 
-    void SoundManager::Initialize()
+    void SoundManager::initialize()
     {
         LoadBackgroundMusicFromFile();
         LoadSoundFromFile();
