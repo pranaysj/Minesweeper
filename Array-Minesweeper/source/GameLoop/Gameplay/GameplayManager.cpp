@@ -1,105 +1,125 @@
-#include "../../header/GameLoop/Gameplay/GameplayManager.h"
 #include <iostream>
+#include "../../header/GameLoop/Gameplay/GameplayManager.h"
+#include "../../../header/Time/TimeManager.h"
 
 namespace Gameplay
 {
-    GameplayManager::GameplayManager()
+    GameplayManager::GameplayManager() { initialize(); }
+
+    void GameplayManager::initialize()
     {
-        Initialize();
+        initializeBackgroundImage();
+        initializeVariables();
     }
 
-    void GameplayManager::Initialize()
+    void GameplayManager::initializeBackgroundImage()
     {
-        InitializeBackgroundImage();
-        board = new Board(this);
-        gameResult = GameResult::NONE;
-    }
-
-    void GameplayManager::InitializeBackgroundImage()
-    {
-        if (!backgroundTexture.loadFromFile(backgroundTexturePath))
+        if (!background_texture.loadFromFile(background_texture_path))
         {
             std::cerr << "Failed to load background texture!" << std::endl;
             return;
         }
-        backgroundSprite.setTexture(backgroundTexture);
-        backgroundSprite.setColor(sf::Color(255, 255, 255, backgroundAlpha));
+
+        background_sprite.setTexture(background_texture);
+        background_sprite.setColor(sf::Color(255, 255, 255, background_alpha));
     }
 
-    void GameplayManager::Update(Event::EventPollingManager& eventManager, sf::RenderWindow& window)
+    void GameplayManager::initializeVariables()
     {
-        HandleGameplay(eventManager, window);
-        ProcessGameResult();
+        board = new Board(this);
+
+        remaining_time = max_level_duration;
+        game_result = GameResult::NONE;
     }
 
-    void GameplayManager::Render(sf::RenderWindow& window)
+    void GameplayManager::update(EventPollingManager* eventManager, sf::RenderWindow* window)
     {
-        window.draw(backgroundSprite);
-        board->Render(window);
+        if (!hasGameEnded())
+            handleGameplay(eventManager, window);
+
+        processGameResult();
     }
 
-    void GameplayManager::CheckGameWin() {
+    void GameplayManager::handleGameplay(EventPollingManager* eventManager, sf::RenderWindow* window)
+    {
+        updateRemainingTime();
+        board->update(*eventManager, *window);
+        checkGameWin();
+    }
 
-        if (board->AreAllCellsOpen()) {
-            gameResult = GameResult::WON;;
-            board->SetBoardState(BoardState::COMPLETED);
+    void GameplayManager::updateRemainingTime()
+    {
+        remaining_time -= Time::TimeManager::getDeltaTime();
+        processTimeOver();
+    }
+
+    void GameplayManager::processTimeOver()
+    {
+        if (remaining_time <= 0)
+        {
+            remaining_time = 0;
+            game_result = GameResult::LOST;
+            board->setBoardState(BoardState::COMPLETED);
         }
     }
 
-    void GameplayManager::ProcessGameResult()
+    void GameplayManager::checkGameWin()
     {
-        switch (gameResult)
+        if (board->areAllCellsOpen())
+        {
+            game_result = GameResult::WON;
+            board->setBoardState(BoardState::COMPLETED);
+        }
+    }
+
+    void GameplayManager::processGameResult()
+    {
+        switch (game_result)
         {
         case GameResult::WON:
-            GameWon();
+            gameWon();
             break;
         case GameResult::LOST:
-            GameLost();
+            gameLost();
             break;
         default:
             break;
         }
     }
 
-    void GameplayManager::GameWon()
+    void GameplayManager::gameWon()
     {
         Sound::SoundManager::PlaySound(Sound::SoundType::GAME_WON);
-        board->FlagAllMines();
-        board->SetBoardState(BoardState::COMPLETED);
-        gameResult = GameResult::NONE;
+        board->flagAllMines();
+        board->setBoardState(BoardState::COMPLETED);
+        game_result = GameResult::NONE;
     }
 
-    void GameplayManager::GameLost()
+    void GameplayManager::gameLost()
     {
         Sound::SoundManager::PlaySound(Sound::SoundType::EXPLOSION);
-        board->SetBoardState(BoardState::COMPLETED);
-        gameResult = GameResult::NONE;
+        // Should blast all mines here ???
+        board->setBoardState(BoardState::COMPLETED);
+        game_result = GameResult::NONE;
     }
 
-    void GameplayManager::HandleGameplay(Event::EventPollingManager& eventManager, sf::RenderWindow& window)
+    void GameplayManager::render(sf::RenderWindow& window)
     {
-        if (gameResult == GameResult::NONE && board->GetBoardState() != BoardState::COMPLETED)
-        {
-            board->Update(eventManager, window);
-            CheckGameWin();
-        }
+        window.draw(background_sprite);
+        board->render(window);
     }
 
-    int GameplayManager::GetMinesCount() const
+    void GameplayManager::restartGame()
     {
-        return board->GetMinesCount();
+        game_result = GameResult::NONE;
+        board->reset();
+        Time::TimeManager::initialize();
+        remaining_time = max_level_duration;
     }
 
-    float GameplayManager::GetRemainingTime() const
-    {
-        return remainingTime;
-    }
-    GameResult GameplayManager::GetGameResult()
-    {
-        return gameResult;
-    }
-    void GameplayManager::SetGameResult(GameResult gameResult)
-    {
-        this->gameResult = gameResult;
-    }
+    bool GameplayManager::hasGameEnded() { return !(game_result == GameResult::NONE && board->getBoardState() != BoardState::COMPLETED); }
+
+    int GameplayManager::getMinesCount() const { return board->getMinesCount(); }
+
+    void GameplayManager::setGameResult(GameResult gameResult) { this->game_result = gameResult; }
 }

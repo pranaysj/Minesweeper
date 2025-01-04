@@ -33,59 +33,42 @@ namespace Gameplay
     class Cell
     {
     private:
-        // Cell data members
-        CellState currentCellState;
-        CellType cellType;
+        CellState current_cell_state;
+        CellType cell_type;
         Board* board;
         sf::Vector2i position;
         int mines_around;
 
-        // View and Rendering
-        const float cellTopOffset = 274.f;
-        const float cellLeftOffset = 583.f;
-        const int tileSize = 32;
-        const int sliceCount = 12;
-        const std::string cellTexturePath = "assets/textures/cells.jpeg";
+        const float cell_top_offset = 274.f;
+        const float cell_left_offset = 583.f;
+        const int tile_size = 32;
+        const int slice_count = 12;
+        const std::string cell_texture_path = "assets/textures/cells.jpeg";
+        Button* cell_button;
 
+        void initialize(float width, float height, sf::Vector2i position);
+        sf::Vector2f getCellScreenPosition(float width, float height) const;
+        void setCellTexture();
 
-        Button* cellButton;
-
-        // Private helper functions
-
-        void SetCellTexture();
+        void registerCellButtonCallback();
+        void cellButtonCallback(MouseButtonType button_type);
 
     public:
         Cell(float width, float height, sf::Vector2i position, Board* board);
         ~Cell() = default;
 
-        sf::Vector2f GetCellScreenPosition(float width, float height) const;
+        void update(Event::EventPollingManager& eventManager, sf::RenderWindow& window);
+        void render(sf::RenderWindow& window);
 
-        // Initialization and rendering functions
-        void Initialize(float width, float height, sf::Vector2i position);
-        void Update(Event::EventPollingManager& eventManager, sf::RenderWindow& window);
-        void Render(sf::RenderWindow& window);
-        void RegisterCellButtonCallback();
-        void CellButtonCallback(ButtonType button_type);
+        void reset();
+        bool canOpenCell() const;
+        void toggleFlag();
+        void open();
 
-        // Cell state and type management
-        CellState GetCellState() const;
-        void SetCellState(CellState state);
-
-        CellType GetCellType() const;
-        void SetCellType(CellType type);
-
-        void SetCellPosition(sf::Vector2i grid_position);
-        sf::Vector2i GetCellPosition();
-
-        int GetMinesAround() const;
-        void SetMinesAround(int mine_count);
-
-        float GetCellLeftOffset() const;
-        float GetCellTopOffset() const;
-
-        void Reset();
-        bool CanOpenCell() const;
-        void ToggleFlag();
-        void Open();
+        CellState getCellState() const;
+        void setCellState(CellState state);
+        CellType getCellType() const;
+        void setCellType(CellType type);
+        sf::Vector2i getCellPosition();
     };
 }
