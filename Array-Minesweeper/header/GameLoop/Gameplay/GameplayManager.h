@@ -1,19 +1,9 @@
 #pragma once
 #include "../../header/GameLoop/Gameplay/Board.h"
-#include "../../header/Event/EventPollingManager.h"
 #include <SFML/Graphics.hpp>
 
 namespace Gameplay
 {
-    using namespace Event;
-
-    enum class GameResult
-    {
-        NONE,
-        WON,
-        LOST
-    };
-
     class GameplayManager
     {
     private:
