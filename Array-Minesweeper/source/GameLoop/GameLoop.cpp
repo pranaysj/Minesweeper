@@ -1,5 +1,6 @@
 #include "../../header/GameLoop/GameLoop.h"
 #include "../../header/Time/TimeManager.h"
+#include "../../header/Sound/SoundManager.h"
 #include <iostream>
 
 GameState GameLoop::current_state = GameState::SPLASH_SCREEN;
