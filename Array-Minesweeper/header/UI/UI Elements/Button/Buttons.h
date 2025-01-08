@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../../header/Event/EventPollingManager.h"
-#include "../../header/Sound/SoundManager.h"
 #include <functional>
 
 namespace UIElements {

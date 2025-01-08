@@ -4,7 +4,6 @@
 #include <random>
 #include "../../header/GameLoop/Gameplay/Cell.h"
 #include "../../header/Event/EventPollingManager.h"
-#include "../../header/Sound/SoundManager.h"
 
 namespace Gameplay
 {
@@ -19,7 +18,6 @@ namespace Gameplay
 
         // State and View Members
         Cell* board;
-        int flaggedCells;
 
         const float horizontalCellPadding = 115.f;
         const float verticalCellPadding = 329.f;
