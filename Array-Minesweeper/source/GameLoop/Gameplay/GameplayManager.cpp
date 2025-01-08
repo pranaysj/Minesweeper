@@ -29,7 +29,6 @@ namespace Gameplay
         board = new Board();
     }
 
-
     void GameplayManager::render(sf::RenderWindow& window)
     {
         window.draw(background_sprite);

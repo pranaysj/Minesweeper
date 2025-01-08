@@ -19,8 +19,8 @@ namespace Gameplay
 
     sf::Vector2f Cell::getCellScreenPosition(float width, float height) const
     {
-        float xScreenPosition = cell_left_offset + position.x * width;
-        float yScreenPosition = cell_top_offset + position.y * height;
+        float xScreenPosition = cell_left_offset;
+        float yScreenPosition = cell_top_offset;
         return sf::Vector2f(xScreenPosition, yScreenPosition);
     }
 
