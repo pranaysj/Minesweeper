@@ -19,6 +19,7 @@ namespace Gameplay
     void Board::initializeVariables(GameplayManager* gameplay_manager)
     {
         this->gameplay_manager = gameplay_manager;
+        randomEngine.seed(randomDevice());
         boardState = BoardState::FIRST_CELL;
         flaggedCells = 0;
     }
