@@ -12,13 +12,6 @@ namespace UIElements {
         RIGHT_MOUSE_BUTTON
     };
 
-    enum class ButtonState
-    {
-        PRESSED,
-        HELD,
-        RELEASED
-    };
-
     class Button {
     private:
         sf::Texture button_texture;

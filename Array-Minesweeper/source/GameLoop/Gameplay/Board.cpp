@@ -113,7 +113,6 @@ namespace Gameplay
 
         // Open the cell and process its type
         processCellType(cell_position);
-        board[cell_position.x][cell_position.y]->open();
     }
 
     void Board::flagCell(sf::Vector2i cell_position)
@@ -191,6 +190,7 @@ namespace Gameplay
             processMineCell(cell_position);
             break;
         default:
+            board[cell_position.x][cell_position.y]->open();
             break;
         }
     }
