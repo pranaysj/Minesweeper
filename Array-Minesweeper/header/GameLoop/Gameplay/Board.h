@@ -36,9 +36,11 @@ namespace Gameplay
 
         // Randomization
         std::default_random_engine randomEngine;
+        std::random_device randomDevice;
 
         // Private helper methods
         void initialize();
+        void initializeVariables();
         void initializeBoardImage();
 
         void createBoard();

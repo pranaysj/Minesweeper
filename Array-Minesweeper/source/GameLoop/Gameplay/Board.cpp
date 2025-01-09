@@ -14,8 +14,14 @@ namespace Gameplay
     void Board::initialize()
     {
         initializeBoardImage();
+        initializeVariables();
         createBoard();
         populateBoard();
+    }
+
+    void Board::initializeVariables()
+    {
+        randomEngine.seed(randomDevice());
     }
 
     void Board::initializeBoardImage()
