@@ -23,7 +23,7 @@ namespace Gameplay
         // Board Constants
         static const int numberOfRows = 9;
         static const int numberOfColumns = 9;
-        static const int minesCount = 9;
+        static const int minesCount = 1;
 
         // State and View Members
         BoardState boardState;
@@ -68,8 +68,6 @@ namespace Gameplay
         void processEmptyCell(sf::Vector2i cell_position);
         void processMineCell(sf::Vector2i cell_position);
 
-        void openEmptyCells(sf::Vector2i cell_position);
-        void OpenAllCells();
         void revealAllMines();
 
     public:
@@ -82,8 +80,6 @@ namespace Gameplay
 
         void reset();
         void onCellButtonClicked(sf::Vector2i cell_position, MouseButtonType mouse_button_type);
-
-
 
         bool isValidCellPosition(sf::Vector2i cell_position);
 

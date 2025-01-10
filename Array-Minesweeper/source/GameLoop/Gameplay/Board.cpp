@@ -66,9 +66,6 @@ namespace Gameplay
 
     void Board::update(Event::EventPollingManager& eventManager, sf::RenderWindow& window)
     {
-        if (boardState == BoardState::COMPLETED)
-            return;
-
         for (int row = 0; row < numberOfRows; ++row)
             for (int col = 0; col < numberOfColumns; ++col)
                 board[row][col]->update(eventManager, window);
@@ -85,9 +82,6 @@ namespace Gameplay
 
     void Board::onCellButtonClicked(sf::Vector2i cell_position, MouseButtonType mouse_button_type)
     {
-        if (boardState == BoardState::COMPLETED)
-            return;
-
         if (mouse_button_type == MouseButtonType::LEFT_MOUSE_BUTTON)
         {
             Sound::SoundManager::PlaySound(Sound::SoundType::BUTTON_CLICK);
@@ -220,11 +214,11 @@ namespace Gameplay
 
                 openCell(next_cell_position);
             }
-
     }
 
     void Board::processMineCell(sf::Vector2i cell_position)
     {
+        Sound::SoundManager::PlaySound(Sound::SoundType::EXPLOSION);
         gameplay_manager->setGameResult(GameResult::LOST);
         boardState = BoardState::COMPLETED;
         revealAllMines();

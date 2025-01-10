@@ -52,7 +52,6 @@ namespace Gameplay
         void render(sf::RenderWindow& window);
 
         void checkGameWin();
-        void restartGame();
         void processGameResult();
 
         void setGameResult(GameResult gameResult);
