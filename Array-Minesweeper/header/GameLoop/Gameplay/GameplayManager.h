@@ -18,8 +18,7 @@ namespace Gameplay
     class GameplayManager
     {
     private:
-        const float max_level_duration = 150.0f;
-        const float game_over_time = 11.0f;
+        const float max_level_duration = 5.0f;
         float remaining_time;
 
         const float background_alpha = 85.f;

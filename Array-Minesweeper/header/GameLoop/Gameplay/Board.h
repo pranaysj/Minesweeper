@@ -23,7 +23,7 @@ namespace Gameplay
         // Board Constants
         static const int numberOfRows = 9;
         static const int numberOfColumns = 9;
-        static const int minesCount = 1;
+        static const int minesCount = 9;
 
         // State and View Members
         BoardState boardState;

@@ -36,7 +36,7 @@ namespace Gameplay
     {
         if (!hasGameEnded())
             handleGameplay(eventManager, window);
-        else if(BoardState::COMPLETED != board->getBoardState())
+        else if(board->getBoardState() != BoardState::COMPLETED)
             processGameResult();
     }
 
@@ -59,7 +59,6 @@ namespace Gameplay
         {
             remaining_time = 0;
             game_result = GameResult::LOST;
-            board->setBoardState(BoardState::COMPLETED);
         }
     }
 
@@ -91,13 +90,12 @@ namespace Gameplay
         board->setBoardState(BoardState::COMPLETED);
         Sound::SoundManager::PlaySound(Sound::SoundType::GAME_WON);
         board->flagAllMines();
-        // game_result = GameResult::NONE;
     }
 
     void GameplayManager::gameLost()
     {
+        Sound::SoundManager::PlaySound(Sound::SoundType::EXPLOSION);
         board->setBoardState(BoardState::COMPLETED);
-        game_result = GameResult::NONE;
     }
 
     void GameplayManager::render(sf::RenderWindow& window)

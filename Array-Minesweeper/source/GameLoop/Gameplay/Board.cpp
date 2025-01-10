@@ -218,9 +218,9 @@ namespace Gameplay
 
     void Board::processMineCell(sf::Vector2i cell_position)
     {
-        Sound::SoundManager::PlaySound(Sound::SoundType::EXPLOSION);
+        //Sound::SoundManager::PlaySound(Sound::SoundType::EXPLOSION);
+        //boardState = BoardState::COMPLETED;
         gameplay_manager->setGameResult(GameResult::LOST);
-        boardState = BoardState::COMPLETED;
         revealAllMines();
     }
 
