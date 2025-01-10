@@ -36,7 +36,7 @@ namespace Gameplay
     {
         if (!hasGameEnded())
             handleGameplay(eventManager, window);
-        else if(board->getBoardState() != BoardState::COMPLETED)
+        else if (board->getBoardState() != BoardState::COMPLETED)
             processGameResult();
     }
 
@@ -87,8 +87,8 @@ namespace Gameplay
 
     void GameplayManager::gameWon()
     {
-        board->setBoardState(BoardState::COMPLETED);
         Sound::SoundManager::PlaySound(Sound::SoundType::GAME_WON);
+        board->setBoardState(BoardState::COMPLETED);
         board->flagAllMines();
     }
 
@@ -96,6 +96,7 @@ namespace Gameplay
     {
         Sound::SoundManager::PlaySound(Sound::SoundType::EXPLOSION);
         board->setBoardState(BoardState::COMPLETED);
+        board->revealAllMines();
     }
 
     void GameplayManager::render(sf::RenderWindow& window)
