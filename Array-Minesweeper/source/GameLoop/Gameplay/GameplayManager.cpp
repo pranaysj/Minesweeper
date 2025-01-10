@@ -35,11 +35,12 @@ namespace Gameplay
 
     void GameplayManager::update(EventPollingManager* eventManager, sf::RenderWindow* window)
     {
-        if(!hasGameEnded())
-            handleGameplay(eventManager, window);
-        
+        if (!hasGameEnded())
+            handleGameplay(eventManager, window);  
+        else if (board->getBoardState() != BoardState::COMPLETED)
+            processGameResult();
+
         gameplay_ui->update(getMinesCount(), static_cast<int>(remaining_time), eventManager, window);
-        processGameResult();
     }
 
     void GameplayManager::handleGameplay(EventPollingManager* eventManager, sf::RenderWindow* window)
@@ -70,7 +71,6 @@ namespace Gameplay
         if (board->areAllCellsOpen())
         {
             game_result = GameResult::WON;
-            board->setBoardState(BoardState::COMPLETED);
         }
     }
 
@@ -99,8 +99,6 @@ namespace Gameplay
 
     void GameplayManager::gameLost()
     {
-        Sound::SoundManager::PlaySound(Sound::SoundType::EXPLOSION);
-        // Should blast all mines here ???
         board->setBoardState(BoardState::COMPLETED);
         game_result = GameResult::NONE;
     }
@@ -120,7 +118,7 @@ namespace Gameplay
         remaining_time = max_level_duration;
     }
 
-    bool GameplayManager::hasGameEnded() { return !(game_result == GameResult::NONE && board->getBoardState() != BoardState::COMPLETED); }
+    bool GameplayManager::hasGameEnded() { return game_result != GameResult::NONE || board->getBoardState() == BoardState::COMPLETED; }
 
     int GameplayManager::getMinesCount() const { return board->getMinesCount(); }
     
