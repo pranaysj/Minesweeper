@@ -70,7 +70,6 @@ namespace Gameplay
 
         void openEmptyCells(sf::Vector2i cell_position);
         void OpenAllCells();
-        void revealAllMines();
 
     public:
         Board(GameplayManager* gameplayManager);
@@ -94,5 +93,6 @@ namespace Gameplay
         
         bool areAllCellsOpen();
         void flagAllMines();
+        void revealAllMines();
     };
 }

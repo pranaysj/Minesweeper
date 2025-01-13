@@ -94,13 +94,13 @@ namespace Gameplay
         Sound::SoundManager::PlaySound(Sound::SoundType::GAME_WON);
         board->flagAllMines();
         board->setBoardState(BoardState::COMPLETED);
-        game_result = GameResult::NONE;
     }
 
     void GameplayManager::gameLost()
     {
+        Sound::SoundManager::PlaySound(Sound::SoundType::EXPLOSION);
+        board->revealAllMines();
         board->setBoardState(BoardState::COMPLETED);
-        game_result = GameResult::NONE;
     }
 
     void GameplayManager::render(sf::RenderWindow& window)
