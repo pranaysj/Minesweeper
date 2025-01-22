@@ -45,7 +45,7 @@ namespace Gameplay
         Button* cell_button;
 
         void initialize(float width, float height, sf::Vector2i position);
-        sf::Vector2f getCellScreenPosition(float width, float height) const;
+        sf::Vector2f getCellScreenPosition() const;
         void setCellTexture();
 
     public:
