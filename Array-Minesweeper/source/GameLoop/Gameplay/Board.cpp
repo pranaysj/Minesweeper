@@ -37,14 +37,14 @@ namespace Gameplay
         float cell_width = getCellWidthInBoard();
         float cell_height = getCellHeightInBoard();
         for (int col = 0; col < numberOfColumns; ++col) {
-        board[col] = new Cell(cell_width, cell_height, sf::Vector2i(col, 0));
+        cell[col] = new Cell(cell_width, cell_height, sf::Vector2i(col, 0));
         }
     }
 
     void Board::deleteBoard()
     {
         for (int col = 0; col < numberOfColumns; ++col) {
-            delete board[col];
+            delete cell[col];
         }
     }
 
@@ -52,7 +52,7 @@ namespace Gameplay
     {
         window.draw(boardSprite);
         for (int col = 0; col < numberOfColumns; ++col) {
-            board[col]->render(window);
+            cell[col]->render(window);
         }
     }
 

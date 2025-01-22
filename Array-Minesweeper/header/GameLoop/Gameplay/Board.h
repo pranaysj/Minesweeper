@@ -18,7 +18,7 @@ namespace Gameplay
         static const int minesCount = 9;
 
         // State and View Members
-        Cell* board[numberOfColumns];
+        Cell* cell[numberOfColumns];
         int flaggedCells;
 
         const float horizontalCellPadding = 115.f;
