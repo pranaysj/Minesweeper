@@ -37,18 +37,18 @@ namespace Gameplay
     {
         float cell_width = getCellWidthInBoard();
         float cell_height = getCellHeightInBoard();
-        board = new Cell(cell_width, cell_height, sf::Vector2i(0, 0));
+        cell = new Cell(cell_width, cell_height, sf::Vector2i(0, 0));
     }
 
     void Board::deleteBoard()
     {
-        delete board;
+        delete cell;
     }
 
     void Board::render(sf::RenderWindow& window)
     {
         window.draw(boardSprite);
-        board->render(window);
+        cell->render(window);
 
     }
 

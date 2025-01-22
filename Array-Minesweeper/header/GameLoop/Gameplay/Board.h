@@ -17,7 +17,7 @@ namespace Gameplay
         static const int minesCount = 9;
 
         // State and View Members
-        Cell* board;
+        Cell* cell;
 
         const float horizontalCellPadding = 115.f;
         const float verticalCellPadding = 329.f;
