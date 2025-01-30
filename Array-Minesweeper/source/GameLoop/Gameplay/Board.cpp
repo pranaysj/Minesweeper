@@ -96,7 +96,7 @@ namespace Gameplay
         else if (mouse_button_type == MouseButtonType::RIGHT_MOUSE_BUTTON)
         {
             Sound::SoundManager::PlaySound(Sound::SoundType::FLAG);
-            flagCell(cell_position);
+            toggleFlag(cell_position);
         }
     }
 
@@ -117,7 +117,7 @@ namespace Gameplay
         cell[cell_position.x][cell_position.y]->open();
     }
 
-    void Board::flagCell(sf::Vector2i cell_position)
+    void Board::toggleFlag(sf::Vector2i cell_position)
     {
         cell[cell_position.x][cell_position.y]->toggleFlag();
         flaggedCells += (cell[cell_position.x][cell_position.y]->getCellState() == CellState::FLAGGED) ? 1 : -1;
@@ -204,8 +204,7 @@ namespace Gameplay
         {
         case::Gameplay::CellState::OPEN:
             return;
-        case::Gameplay::CellState::FLAGGED:
-            flaggedCells--;
+
         default:
             cell[cell_position.x][cell_position.y]->open();
         }
@@ -214,10 +213,17 @@ namespace Gameplay
             for (int b = -1; b <= 1; b++)
             {
                 sf::Vector2i next_cell_position = sf::Vector2i(a + cell_position.x, b + cell_position.y);
-                
+
                 if ((a == 0 && b == 0) || !isValidCellPosition(sf::Vector2i(next_cell_position)))
                     continue;
-                
+
+                CellState next_cell_state = cell[next_cell_position.x][next_cell_position.y]->getCellState();
+
+                if (next_cell_state == CellState::FLAGGED)
+                {
+                    toggleFlag(next_cell_position);
+                }
+
                 openCell(next_cell_position);
             }
 
@@ -263,7 +269,7 @@ namespace Gameplay
         for (int row = 0; row < numberOfRows; ++row)
             for (int col = 0; col < numberOfColumns; ++col)
                 if (cell[row][col]->getCellType() == CellType::MINE && cell[row][col]->getCellState() != CellState::FLAGGED)
-                    flagCell(sf::Vector2i(row, col));
+                    toggleFlag(sf::Vector2i(row, col));
     }
     
     bool Board::isValidCellPosition(sf::Vector2i cell_position)
