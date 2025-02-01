@@ -51,6 +51,15 @@ namespace UI {
         timeText.setString("000");
     }
 
+    std::string GameplayUI::formatScore(int text)
+    {
+        if (text < 10)
+            return "00" + std::to_string(text);
+        else if (text < 100)
+            return "0" + std::to_string(text);
+        return std::to_string(text);
+    }
+
     void GameplayUI::initializeButton()
     {
         restartButton = new Button(restartButtonTexturePath, sf::Vector2f(restartButtonLeftOffset, restartButtonTopOffset), buttonWidth, buttonHeight);
@@ -67,8 +76,8 @@ namespace UI {
 
     void GameplayUI::update(int remaining_mines, int remaining_time, EventPollingManager* eventManager, sf::RenderWindow* window)
     {
-        mineText.setString(std::to_string(remaining_mines));
-        timeText.setString(std::to_string(remaining_time));
+        mineText.setString(formatScore(remaining_mines));
+        timeText.setString(formatScore(remaining_time));
         restartButton->handleButtonInteractions(*eventManager, *window);
     }
 

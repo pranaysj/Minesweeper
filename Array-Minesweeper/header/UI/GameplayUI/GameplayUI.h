@@ -52,6 +52,7 @@ namespace UI
         void initializeTexts();
         void initializeButton();
         void loadFonts();
+        std::string formatScore(int text);
 
         void registerButtonCallback();
         void RestartButtonCallback(MouseButtonType mouse_button_type);
