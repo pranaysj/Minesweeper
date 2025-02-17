@@ -45,7 +45,7 @@
     <ClCompile Include="source\Sound\SoundManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\UI\UI Elements\Button\Buttons.cpp">
+    <ClCompile Include="source\UI\UIElements\Button\Button.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -57,9 +57,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\GameLoop\GameLoop.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="header\UI\SplashScreenManager\SplashScreenManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\GameLoop\Gameplay\GameplayManager.h">
@@ -77,7 +74,10 @@
     <ClInclude Include="header\Sound\SoundManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\UI\UI Elements\Button\Buttons.h">
+    <ClInclude Include="header\UI\UIElements\Button\Button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UI\SplashScreen\SplashScreenManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
