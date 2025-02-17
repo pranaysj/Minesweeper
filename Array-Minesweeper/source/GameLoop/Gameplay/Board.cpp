@@ -40,7 +40,7 @@ namespace Gameplay
         {
             for (int col = 0; col < numberOfColumns; ++col)
             {
-                board[row][col] = new Cell(cell_width, cell_height, sf::Vector2i(row, col));
+                cell[row][col] = new Cell(cell_width, cell_height, sf::Vector2i(row, col));
             }
         }
     }
@@ -49,7 +49,7 @@ namespace Gameplay
     {
         for (int row = 0; row < numberOfRows; ++row)
             for (int col = 0; col < numberOfColumns; ++col)
-                delete board[row][col];
+                delete cell[row][col];
     }
 
     void Board::render(sf::RenderWindow& window)
@@ -59,7 +59,7 @@ namespace Gameplay
         {
             for (int col = 0; col < numberOfColumns; ++col)
             {
-                board[row][col]->render(window);
+                cell[row][col]->render(window);
             }
         }
     }

@@ -26,13 +26,13 @@ namespace Gameplay
 
     void GameplayManager::initializeVariables()
     {
-        board = new Board();
+        cell = new Board();
     }
 
 
     void GameplayManager::render(sf::RenderWindow& window)
     {
         window.draw(background_sprite);
-        board->render(window);
+        cell->render(window);
     }
 }
