@@ -39,7 +39,7 @@ namespace Gameplay
     void Board::populateBoard()
     {
         populateMines();
-        populateCells();
+        //populateCells();
     }
 
     void Board::populateMines()
@@ -53,8 +53,11 @@ namespace Gameplay
             int x = x_dist(randomEngine);
             int y = y_dist(randomEngine);
 
-            board[x][y]->setCellType(CellType::MINE);
-            ++mines_placed;
+            if (board[x][y]->getCellType() != CellType::MINE) {
+                //Step 4
+                board[x][y]->setCellType(CellType::MINE);
+                ++mines_placed;
+            }
         }
     }
 
