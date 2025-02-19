@@ -39,7 +39,7 @@ namespace Gameplay
     void Board::populateBoard()
     {
         populateMines();
-        //populateCells();
+        populateCells();
     }
 
     void Board::populateMines()
