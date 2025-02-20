@@ -21,7 +21,6 @@ namespace UIElements {
     }
 
     void Button::handleButtonInteractions(Event::EventPollingManager& event_manager, const sf::RenderWindow& window) {
-
         if (event_manager.pressedLeftMouseButton() && isMouseOnSprite(event_manager, window))
             callback_function(MouseButtonType::LEFT_MOUSE_BUTTON);
         else if (event_manager.pressedRightMouseButton() && isMouseOnSprite(event_manager, window))

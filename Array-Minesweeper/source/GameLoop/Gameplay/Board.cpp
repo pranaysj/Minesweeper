@@ -44,14 +44,14 @@ namespace Gameplay
 
         for (int row = 0; row < numberOfRows; ++row)
             for (int col = 0; col < numberOfColumns; ++col)
-                board[row][col] = new Cell(cell_width, cell_height, sf::Vector2i(row, col), this);
+                cell[row][col] = new Cell(cell_width, cell_height, sf::Vector2i(row, col), this);
     }
 
     void Board::reset()
     {
         for (int row = 0; row < numberOfRows; ++row)
             for (int col = 0; col < numberOfColumns; ++col)
-                board[row][col]->reset();
+                cell[row][col]->reset();
 
         flaggedCells = 0;
         boardState = BoardState::FIRST_CELL;
@@ -61,14 +61,14 @@ namespace Gameplay
     {
         for (int row = 0; row < numberOfRows; ++row)
             for (int col = 0; col < numberOfColumns; ++col)
-                delete board[row][col];
+                delete cell[row][col];
     }
 
     void Board::update(Event::EventPollingManager& eventManager, sf::RenderWindow& window)
     {
         for (int row = 0; row < numberOfRows; ++row)
             for (int col = 0; col < numberOfColumns; ++col)
-                board[row][col]->update(eventManager, window);
+                cell[row][col]->update(eventManager, window);
     }
 
     void Board::render(sf::RenderWindow& window)
@@ -77,7 +77,7 @@ namespace Gameplay
 
         for (int row = 0; row < numberOfRows; ++row)
             for (int col = 0; col < numberOfColumns; ++col)
-                board[row][col]->render(window);
+                cell[row][col]->render(window);
     }
 
     void Board::onCellButtonClicked(sf::Vector2i cell_position, MouseButtonType mouse_button_type)
@@ -96,7 +96,7 @@ namespace Gameplay
 
     void Board::openCell(sf::Vector2i cell_position)
     {
-        if (!board[cell_position.x][cell_position.y]->canOpenCell())
+        if (!cell[cell_position.x][cell_position.y]->canOpenCell())
             return;
 
         // Handle first click logic
@@ -112,8 +112,8 @@ namespace Gameplay
 
     void Board::flagCell(sf::Vector2i cell_position)
     {
-        board[cell_position.x][cell_position.y]->toggleFlag();
-        flaggedCells += (board[cell_position.x][cell_position.y]->getCellState() == CellState::FLAGGED) ? 1 : -1;
+        cell[cell_position.x][cell_position.y]->toggleFlag();
+        flaggedCells += (cell[cell_position.x][cell_position.y]->getCellState() == CellState::FLAGGED) ? 1 : -1;
     }
 
     void Board::populateBoard(sf::Vector2i first_cell_position)
@@ -136,24 +136,24 @@ namespace Gameplay
             if (isInvalidMinePosition(first_cell_position, x, y))
                 continue;
 
-            board[x][y]->setCellType(CellType::MINE);
+            cell[x][y]->setCellType(CellType::MINE);
             ++mines_placed;
         }
     }
 
     bool Board::isInvalidMinePosition(sf::Vector2i first_cell_position, int x, int y)
     {
-        return (x == first_cell_position.x && y == first_cell_position.y) || board[x][y]->getCellType() == CellType::MINE;
+        return (x == first_cell_position.x && y == first_cell_position.y) || cell[x][y]->getCellType() == CellType::MINE;
     }
 
     void Board::populateCells()
     {
         for (int row = 0; row < numberOfRows; ++row)
             for (int col = 0; col < numberOfColumns; ++col)
-                if (board[row][col]->getCellType() != CellType::MINE)
+                if (cell[row][col]->getCellType() != CellType::MINE)
                 {
                     int mines_around = countMinesAround(sf::Vector2i(row, col));
-                    board[row][col]->setCellType(static_cast<CellType>(mines_around));
+                    cell[row][col]->setCellType(static_cast<CellType>(mines_around));
                 }
     }
 
@@ -167,7 +167,7 @@ namespace Gameplay
                 if ((a == 0 && b == 0) || !isValidCellPosition(sf::Vector2i(cell_position.x + a, cell_position.y + b)))
                     continue;
 
-                if (board[cell_position.x + a][cell_position.y + b]->getCellType() == CellType::MINE)
+                if (cell[cell_position.x + a][cell_position.y + b]->getCellType() == CellType::MINE)
                     mines_around++;
             }
 
@@ -176,7 +176,7 @@ namespace Gameplay
 
     void Board::processCellType(sf::Vector2i cell_position)
     {
-        switch (board[cell_position.x][cell_position.y]->getCellType())
+        switch (cell[cell_position.x][cell_position.y]->getCellType())
         {
         case CellType::EMPTY:
             processEmptyCell(cell_position);
@@ -185,14 +185,14 @@ namespace Gameplay
             processMineCell(cell_position);
             break;
         default:
-            board[cell_position.x][cell_position.y]->open();
+            cell[cell_position.x][cell_position.y]->open();
             break;
         }
     }
 
     void Board::processEmptyCell(sf::Vector2i cell_position)
     {
-        CellState cell_state = board[cell_position.x][cell_position.y]->getCellState();
+        CellState cell_state = cell[cell_position.x][cell_position.y]->getCellState();
 
         switch (cell_state)
         {
@@ -201,7 +201,7 @@ namespace Gameplay
         case::Gameplay::CellState::FLAGGED:
             flaggedCells--;
         default:
-            board[cell_position.x][cell_position.y]->open();
+            cell[cell_position.x][cell_position.y]->open();
         }
 
         for (int a = -1; a <= 1; a++)
@@ -228,10 +228,10 @@ namespace Gameplay
             for (int col = 0; col < numberOfColumns; col++)
             {
                 // Check if the cell contains a mine
-                if (board[row][col]->getCellType() == CellType::MINE)
+                if (cell[row][col]->getCellType() == CellType::MINE)
                 {
                     // Open the mine cell
-                    board[row][col]->setCellState(CellState::OPEN);
+                    cell[row][col]->setCellState(CellState::OPEN);
                 }
             }
         }
@@ -245,7 +245,7 @@ namespace Gameplay
 
         for (int row = 0; row < numberOfRows; ++row)
             for (int col = 0; col < numberOfColumns; ++col)
-                if (board[row][col]->getCellState() == CellState::OPEN && board[row][col]->getCellType() != CellType::MINE)
+                if (cell[row][col]->getCellState() == CellState::OPEN && cell[row][col]->getCellType() != CellType::MINE)
                     open_cell_count++;
 
         return (total_cell_count - open_cell_count == minesCount);
@@ -255,7 +255,7 @@ namespace Gameplay
     {
         for (int row = 0; row < numberOfRows; ++row)
             for (int col = 0; col < numberOfColumns; ++col)
-                if (board[row][col]->getCellType() == CellType::MINE && board[row][col]->getCellState() != CellState::FLAGGED)
+                if (cell[row][col]->getCellType() == CellType::MINE && cell[row][col]->getCellState() != CellState::FLAGGED)
                     flagCell(sf::Vector2i(row, col));
     }
 

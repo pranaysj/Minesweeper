@@ -73,7 +73,7 @@ namespace Gameplay
         mines_around = 0;
     }
 
-    bool Cell::canOpenCell() const { return current_cell_state != CellState::FLAGGED && current_cell_state != CellState::OPEN; }
+    bool Cell::canOpenCell() const { return current_cell_state == CellState::HIDDEN; }
 
     void Cell::toggleFlag()
     {
