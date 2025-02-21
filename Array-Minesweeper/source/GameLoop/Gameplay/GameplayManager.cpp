@@ -118,7 +118,7 @@ namespace Gameplay
         remaining_time = max_level_duration;
     }
 
-    bool GameplayManager::hasGameEnded() { return game_result != GameResult::NONE ; }
+    bool GameplayManager::hasGameEnded() { return game_result != GameResult::NONE;}
 
     int GameplayManager::getMinesCount() const { return board->getMinesCount(); }
     
