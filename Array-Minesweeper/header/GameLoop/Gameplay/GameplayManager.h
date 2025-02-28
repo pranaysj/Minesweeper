@@ -34,7 +34,7 @@ namespace Gameplay
         void updateRemainingTime();
         void processTimeOver();
 
-        void handleGameplay(EventPollingManager* eventManager, sf::RenderWindow* window);
+        void handleGameplay(EventPollingManager& eventManager, sf::RenderWindow& window);
         bool hasGameEnded();
         void gameWon();
         void gameLost();
@@ -49,7 +49,7 @@ namespace Gameplay
         GameplayManager();
         ~GameplayManager() = default;
 
-        void update(EventPollingManager* eventManager, sf::RenderWindow* window);
+        void update(EventPollingManager& eventManager, sf::RenderWindow& window);
         void render(sf::RenderWindow& window);
 
         void checkGameWin();

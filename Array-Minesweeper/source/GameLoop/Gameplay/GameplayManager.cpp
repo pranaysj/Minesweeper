@@ -33,7 +33,7 @@ namespace Gameplay
         game_result = GameResult::NONE;
     }
 
-    void GameplayManager::update(EventPollingManager* eventManager, sf::RenderWindow* window)
+    void GameplayManager::update(EventPollingManager& eventManager, sf::RenderWindow& window)
     {
         if (!hasGameEnded())
             handleGameplay(eventManager, window);  
@@ -43,10 +43,10 @@ namespace Gameplay
         gameplay_ui->update(getMinesCount(), static_cast<int>(remaining_time), eventManager, window);
     }
 
-    void GameplayManager::handleGameplay(EventPollingManager* eventManager, sf::RenderWindow* window)
+    void GameplayManager::handleGameplay(EventPollingManager& eventManager, sf::RenderWindow& window)
     {
         updateRemainingTime();
-        board->update(*eventManager, *window);
+        board->update(eventManager, window);
         checkGameWin();
     }
     

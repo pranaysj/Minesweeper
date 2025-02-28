@@ -49,7 +49,7 @@ void GameLoop::update()
         main_menu_manager->update(*event_manager);
         break;
     case GameState::GAMEPLAY:
-        gameplay_manager->update(event_manager, game_window);
+        gameplay_manager->update(*event_manager, *game_window);
         break;
     case GameState::EXIT:
         game_window->close();

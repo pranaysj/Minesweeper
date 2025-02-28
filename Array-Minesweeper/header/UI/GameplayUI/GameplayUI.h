@@ -61,7 +61,7 @@ namespace UI
         GameplayUI(GameplayManager* gameplay_manager);
         ~GameplayUI() = default;
 
-        void update(int remaining_mines, int remaining_time, EventPollingManager* eventManager, sf::RenderWindow* window);
+        void update(int remaining_mines, int remaining_time, EventPollingManager& eventManager, sf::RenderWindow& window);
         void render(sf::RenderWindow& window);
     };
 }

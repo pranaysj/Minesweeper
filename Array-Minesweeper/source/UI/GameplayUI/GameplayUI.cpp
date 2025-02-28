@@ -74,11 +74,11 @@ namespace UI {
         }
     }
 
-    void GameplayUI::update(int remaining_mines, int remaining_time, EventPollingManager* eventManager, sf::RenderWindow* window)
+    void GameplayUI::update(int remaining_mines, int remaining_time, EventPollingManager& eventManager, sf::RenderWindow& window)
     {
         mineText.setString(formatScore(remaining_mines));
         timeText.setString(formatScore(remaining_time));
-        restartButton->handleButtonInteractions(*eventManager, *window);
+        restartButton->handleButtonInteractions(eventManager, window);
     }
 
     void GameplayUI::render(sf::RenderWindow& window)
