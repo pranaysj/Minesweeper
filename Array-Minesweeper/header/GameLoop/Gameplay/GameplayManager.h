@@ -1,12 +1,14 @@
 #pragma once
 #include "../../header/GameLoop/Gameplay/Board.h"
 #include "../../header/Event/EventPollingManager.h"
+#include "../../../header/Time/TimeManager.h"
 #include <SFML/Graphics.hpp>
 
 namespace Gameplay
 {
     using namespace UIElements;
     using namespace Event;
+    using namespace Time;
 
     enum class GameResult
     {

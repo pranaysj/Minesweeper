@@ -1,6 +1,6 @@
 #include <iostream>
 #include "../../header/GameLoop/Gameplay/GameplayManager.h"
-#include "../../../header/Time/TimeManager.h"
+
 
 namespace Gameplay
 {
@@ -49,7 +49,7 @@ namespace Gameplay
 
     void GameplayManager::updateRemainingTime()
     {
-        remaining_time -= Time::TimeManager::getDeltaTime();
+        remaining_time -= TimeManager::getDeltaTime();
         processTimeOver();
     }
 
