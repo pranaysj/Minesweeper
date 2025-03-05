@@ -105,7 +105,8 @@ namespace Gameplay
         board->render(window);
     }
 
-    bool GameplayManager::hasGameEnded() { return game_result != GameResult::NONE || board->getBoardState() == BoardState::COMPLETED;
+    bool GameplayManager::hasGameEnded() {
+        return game_result != GameResult::NONE;
 }
 
     int GameplayManager::getMinesCount() const { return board->getMinesCount(); }
