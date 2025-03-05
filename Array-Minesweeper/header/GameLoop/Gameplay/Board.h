@@ -4,7 +4,7 @@
 #include <random>
 #include "../../header/GameLoop/Gameplay/Cell.h"
 #include "../../header/Event/EventPollingManager.h"
-#include "../../header/Sound/SoundManager.h"
+//#include "../../header/Sound/SoundManager.h"
 
 namespace Gameplay
 {
@@ -68,8 +68,6 @@ namespace Gameplay
         void processEmptyCell(sf::Vector2i cell_position);
         void processMineCell(sf::Vector2i cell_position);
 
-        void openEmptyCells(sf::Vector2i cell_position);
-        void OpenAllCells();
 
     public:
         Board(GameplayManager* gameplayManager);
