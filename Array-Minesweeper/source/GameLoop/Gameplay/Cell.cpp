@@ -70,7 +70,6 @@ namespace Gameplay
     {
         current_cell_state = CellState::HIDDEN;
         cell_type = CellType::EMPTY;
-        mines_around = 0;
     }
 
     bool Cell::canOpenCell() const { return current_cell_state != CellState::FLAGGED && current_cell_state != CellState::OPEN; }

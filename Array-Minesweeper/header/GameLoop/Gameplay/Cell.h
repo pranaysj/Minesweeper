@@ -37,7 +37,6 @@ namespace Gameplay
         CellType cell_type;
         Board* board;
         sf::Vector2i position;
-        int mines_around;
 
         const float cell_top_offset = 274.f;
         const float cell_left_offset = 583.f;
