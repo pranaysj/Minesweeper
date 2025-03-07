@@ -6,13 +6,13 @@ namespace Gameplay
 {
     Cell::Cell(float width, float height, sf::Vector2i position, Board* board)
     {
-        initialize(width, height, position);
-        this->board = board;
+        initialize(width, height, position, board);
     }
 
-    void Cell::initialize(float width, float height, sf::Vector2i position)
+    void Cell::initialize(float width, float height, sf::Vector2i position, Board* board)
     {
         this->position = position;
+        this->board = board;
         sf::Vector2f cellScreenPosition = getCellScreenPosition(width, height);
         cell_button = new Button(cell_texture_path, cellScreenPosition, width * slice_count, height);
         registerCellButtonCallback();

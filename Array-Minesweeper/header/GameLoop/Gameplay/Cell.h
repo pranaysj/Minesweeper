@@ -45,7 +45,7 @@ namespace Gameplay
         const std::string cell_texture_path = "assets/textures/cells.jpeg";
         Button* cell_button;
 
-        void initialize(float width, float height, sf::Vector2i position);
+        void initialize(float width, float height, sf::Vector2i position, Board* board);
         sf::Vector2f getCellScreenPosition(float width, float height) const;
         void setCellTexture();
 
