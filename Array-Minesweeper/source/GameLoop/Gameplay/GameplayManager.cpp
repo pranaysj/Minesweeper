@@ -61,7 +61,6 @@ namespace Gameplay
         if (remaining_time <= 0)
         {
             remaining_time = 0;
-            game_result = GameResult::LOST;
             board->setBoardState(BoardState::COMPLETED);
         }
     }
