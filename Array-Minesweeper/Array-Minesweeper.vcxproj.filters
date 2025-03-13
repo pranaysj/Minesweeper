@@ -47,14 +47,26 @@
     <ClInclude Include="header\GameLoop\GameLoop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\UI\SplashScreenManager\SplashScreenManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="header\Time\TimeManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="header\Sound\SoundManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\UI\SplashScreen\SplashScreenManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="x64\Debug\Array-Minesweeper.exe" />
+    <None Include="x64\Debug\Array-Minesweeper.pdb" />
+    <None Include="x64\Debug\openal32.dll" />
+    <None Include="x64\Debug\sfml-audio-d-2.dll" />
+    <None Include="x64\Debug\sfml-graphics-d-2.dll" />
+    <None Include="x64\Debug\sfml-network-d-2.dll" />
+    <None Include="x64\Debug\sfml-system-d-2.dll" />
+    <None Include="x64\Debug\sfml-window-d-2.dll" />
+    <None Include=".gitignore" />
+    <None Include="CppProperties.json" />
   </ItemGroup>
 </Project>
