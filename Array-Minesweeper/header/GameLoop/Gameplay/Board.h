@@ -1,7 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "../../header/GameLoop/Gameplay/Cell.h"
 
 namespace Gameplay {
+
 	class Board {
     private:
 
@@ -13,8 +15,12 @@ namespace Gameplay {
         sf::Texture boardTexture;
         sf::Sprite boardSprite;
 
-        void initializeBoardImage();
+        Cell* cell;
+
         void initialize();
+        void initializeBoardImage();
+
+        void createBoard();
 
     public:
         Board();

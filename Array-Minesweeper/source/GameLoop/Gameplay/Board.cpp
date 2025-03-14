@@ -10,6 +10,7 @@ namespace Gameplay {
 	void Board::initialize()
 	{
 		initializeBoardImage();
+		createBoard();
 	}
 
 	void Board::initializeBoardImage()
@@ -25,8 +26,14 @@ namespace Gameplay {
 			boardHeight / boardTexture.getSize().y);
 	}
 
+	void Board::createBoard()
+	{
+		cell = new Cell(83, 83, sf::Vector2i(0, 0));
+	}
+
 	void Board::render(sf::RenderWindow& window)
 	{
 		window.draw(boardSprite);
+		cell->render(window);
 	}
 }
