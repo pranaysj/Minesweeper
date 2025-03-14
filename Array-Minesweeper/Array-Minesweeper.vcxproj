@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClInclude Include="header\Event\EventPollingManager.h" />
     <ClInclude Include="header\GameLoop\GameLoop.h" />
+    <ClInclude Include="header\GameLoop\Gameplay\Board.h" />
+    <ClInclude Include="header\GameLoop\Gameplay\GameplayManager.h" />
     <ClInclude Include="header\GameWindow\GameWindowManager.h" />
     <ClInclude Include="header\Sound\SoundManager.h" />
     <ClInclude Include="header\Time\TimeManager.h" />
@@ -143,10 +145,35 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="source\Event\EventPollingManager.cpp" />
     <ClCompile Include="source\GameLoop\GameLoop.cpp" />
+    <ClCompile Include="source\GameLoop\Gameplay\Board.cpp" />
+    <ClCompile Include="source\GameLoop\Gameplay\GameplayManager.cpp" />
     <ClCompile Include="source\GameWindow\GameWindowManager.cpp" />
     <ClCompile Include="source\Sound\SoundManager.cpp" />
     <ClCompile Include="source\Time\TimeManager.cpp" />
     <ClCompile Include="source\UI\SplashScreen\SplashScreenManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\board.png" />
+    <Image Include="assets\textures\cells.jpeg" />
+    <Image Include="assets\textures\instructions_button.png" />
+    <Image Include="assets\textures\menu_button.png" />
+    <Image Include="assets\textures\minesweeper_bg.png" />
+    <Image Include="assets\textures\outscal_logo.png" />
+    <Image Include="assets\textures\play_button.png" />
+    <Image Include="assets\textures\quit_button.png" />
+    <Image Include="assets\textures\restart_button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="assets\sounds\background_music.mp3" />
+    <Media Include="assets\sounds\button_click_sound.wav" />
+    <Media Include="assets\sounds\explosion_sound.wav" />
+    <Media Include="assets\sounds\flag_sound.wav" />
+    <Media Include="assets\sounds\game_won_sound.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\fonts\bubbleBobble.ttf" />
+    <Font Include="assets\fonts\DS_DIGIB.TTF" />
+    <Font Include="assets\fonts\roboto.ttf" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
