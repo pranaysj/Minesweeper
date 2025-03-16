@@ -26,7 +26,7 @@ namespace UI {
 			window.draw(button_sprite);
 		}
 
-		void Button::setTextureRect(const sf::IntRect& rect)
+		void Button::setTexturesRect(const sf::IntRect& rect)
 		{
 			button_sprite.setTextureRect(rect);
 		}

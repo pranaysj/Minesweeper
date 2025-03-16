@@ -1,4 +1,5 @@
 #include"../../header/GameLoop/Gameplay/Cell.h"
+#include<iostream>
 
 namespace Gameplay {
 
@@ -9,11 +10,20 @@ namespace Gameplay {
 
 	void Cell::initialize(float width, float height, sf::Vector2i position)
 	{
-		this->position = position;
-		sf::Vector2f float_position(static_cast<float>(position.x), static_cast<float>(position.y));
-		cell_button = new Button(cell_texture_path, float_position, width * slice_count , height);
+		//this->position = position;
+		//sf::Vector2f float_position(static_cast<float>(position.x), static_cast<float>(position.y));
+		
+		current_cell_state = CellState::HIDDEN;
+		sf::Vector2f cellScreenPosition = getCellScreenPosition();
+		cell_button = new Button(cell_texture_path, cellScreenPosition, width * slice_count , height);
 	}
 
+	sf::Vector2f Cell::getCellScreenPosition() const
+	{
+		float xScreenPosition = cell_left_offset;
+		float yScreenPosition = cell_top_offset;
+		return sf::Vector2f(xScreenPosition, yScreenPosition);
+	}
 
 	void Cell::setCellState(CellState state)
 	{
@@ -42,13 +52,13 @@ namespace Gameplay {
 		switch (current_cell_state)
 		{	
 		case Gameplay::CellState::HIDDEN:
-			cell_button->setTextureRect(sf::IntRect(10, 0, tile_size, tile_size));
+			cell_button->setTexturesRect(sf::IntRect(128, 0, tile_size, tile_size));
 			break;
 		case Gameplay::CellState::OPEN:
-			cell_button->setTextureRect(sf::IntRect(index * tile_size, 0, tile_size, tile_size));
+			cell_button->setTexturesRect(sf::IntRect(index * tile_size, 0, tile_size, tile_size));
 			break;
 		case Gameplay::CellState::FLAGGED:
-			cell_button->setTextureRect(sf::IntRect(11, 0, tile_size, tile_size));
+			cell_button->setTexturesRect(sf::IntRect(11 * tile_size, 0, tile_size, tile_size));
 			break;
 		}
 	}

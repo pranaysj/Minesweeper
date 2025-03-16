@@ -22,7 +22,7 @@ namespace UI {
 
 			void render(sf::RenderWindow& window);
 
-			void setTextureRect(const sf::IntRect& rect);
+			void setTexturesRect(const sf::IntRect& rect);
 		};
 	}
 }

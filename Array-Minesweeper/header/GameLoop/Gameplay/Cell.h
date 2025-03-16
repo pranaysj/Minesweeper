@@ -9,8 +9,8 @@ namespace Gameplay {
     enum class CellState
     {
         HIDDEN,
-            OPEN,
-            FLAGGED,
+        OPEN,
+        FLAGGED,
     };
 
     enum class CellType
@@ -31,6 +31,8 @@ namespace Gameplay {
 
 	private:
 
+        CellState current_cell_state;
+        CellType cell_type;
 		sf::Vector2i position;
 
         const int tile_size = 128;
@@ -38,12 +40,15 @@ namespace Gameplay {
 
 		const std::string cell_texture_path = "assets/textures/cells.jpeg";
 
+        const float cell_top_offset = 274.f;
+        const float cell_left_offset = 583.f;
+
 		Button* cell_button;
 
-        CellState current_cell_state;
-        CellType cell_type;
 
 		void initialize(float width, float height, sf::Vector2i position);
+
+        sf::Vector2f getCellScreenPosition() const;
 
 	public:
 
