@@ -10,9 +10,7 @@ namespace Gameplay {
 
 	void Cell::initialize(float width, float height, sf::Vector2i position)
 	{
-		//this->position = position;
-		//sf::Vector2f float_position(static_cast<float>(position.x), static_cast<float>(position.y));
-		
+		this->position = position;
 		current_cell_state = CellState::HIDDEN;
 		sf::Vector2f cellScreenPosition = getCellScreenPosition();
 		cell_button = new Button(cell_texture_path, cellScreenPosition, width * slice_count , height);
@@ -52,7 +50,7 @@ namespace Gameplay {
 		switch (current_cell_state)
 		{	
 		case Gameplay::CellState::HIDDEN:
-			cell_button->setTexturesRect(sf::IntRect(128, 0, tile_size, tile_size));
+			cell_button->setTexturesRect(sf::IntRect(10 * tile_size, 0, tile_size, tile_size));
 			break;
 		case Gameplay::CellState::OPEN:
 			cell_button->setTexturesRect(sf::IntRect(index * tile_size, 0, tile_size, tile_size));
