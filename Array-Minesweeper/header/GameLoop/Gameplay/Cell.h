@@ -48,7 +48,7 @@ namespace Gameplay {
 
 		void initialize(float width, float height, sf::Vector2i position);
 
-        sf::Vector2f getCellScreenPosition() const;
+        sf::Vector2f getCellScreenPosition(float width, float height) const;
 
 	public:
 
