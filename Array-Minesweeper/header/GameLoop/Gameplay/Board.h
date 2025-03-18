@@ -50,6 +50,9 @@ namespace Gameplay {
         int flaggedCells;
         void toggleFlag(sf::Vector2i position);
 
+        void processCellType(sf::Vector2i cell_position);
+        void processEmptyType(sf::Vector2i cell_position);
+
     public:
         Board();
 

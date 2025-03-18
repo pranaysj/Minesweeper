@@ -169,12 +169,71 @@ namespace Gameplay {
 			return;
 		}
 
-		cell[position.x][position.y]->open();
+		//cell[position.x][position.y]->open();
+
+		processCellType(position);
 	}
 
 	void Board::toggleFlag(sf::Vector2i position)
 	{
 		cell[position.x][position.y]->toggleFlag();
 		flaggedCells += (cell[position.x][position.y]->getCellState() == CellState::FLAGGED ? 1 : -1);
+	}
+
+	void Board::processCellType(sf::Vector2i cell_position)
+	{
+		CellType cell_type = cell[cell_position.x][cell_position.y]->getCellType();
+		
+		switch (cell_type)
+		{
+		case CellType::EMPTY:
+			processEmptyType(cell_position);
+			break;
+		case CellType::MINE:
+			break;
+		default:
+			cell[cell_position.x][cell_position.y]->open();
+			break;
+		}
+	}
+
+	void Board::processEmptyType(sf::Vector2i cell_position)
+	{
+		CellState cell_state = cell[cell_position.x][cell_position.y]->getCellState();
+
+		switch (cell_state)
+		{	
+		case Gameplay::CellState::OPEN:
+			return;
+		default:
+			cell[cell_position.x][cell_position.y]->open();
+			break;
+		}
+
+		for (int a = -1; a <= 1; ++a)
+		{
+			for (int b = -1; b <= 1; ++b)
+			{
+				//Store neighbor cells position
+				sf::Vector2i next_cell_position = sf::Vector2i(a + cell_position.x, b + cell_position.y);
+				
+				// Skip current cell and invalid positions
+				if ((a == 0 && b == 0) || !isvalidCellPosition(next_cell_position))
+				{
+					continue;
+				}
+
+				//Flagged Cell Case
+				CellState next_cell_state = cell[next_cell_position.x][next_cell_position.y]->getCellState();
+
+				if (next_cell_state == CellState::FLAGGED)
+				{
+					toggleFlag(next_cell_position);
+				}
+
+				//Open neighbor cell
+				openCell(next_cell_position);  // Open neighbor
+			}
+		}
 	}
 }

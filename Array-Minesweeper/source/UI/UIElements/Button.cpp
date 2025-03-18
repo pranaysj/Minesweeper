@@ -28,12 +28,12 @@ namespace UI {
 
 		void Button::handleButtonInteraction(Event::EventPollingManager& event_manager)
 		{
-			if (event_manager.pressedLeftMouseButton() && isMouseOnSprite(event_manager)) {
-				printf("LEFT\n");
+			if (event_manager.pressedLeftMouseButton() && isMouseOnSprite(event_manager))
+			{
 				callback_function(MouseButtonType::LEFT_MOUSE_BUTTON);
 			}
-			if (event_manager.pressedRightMouseButton() && isMouseOnSprite(event_manager)) {
-				printf("RIGHT\n");
+			if (event_manager.pressedRightMouseButton() && isMouseOnSprite(event_manager))
+			{
 				callback_function(MouseButtonType::RIGHT_MOUSE_BUTTON);
 			}
 		}
