@@ -38,8 +38,12 @@ namespace Gameplay {
         float getCellWidthInBoard() const;
         float getCellHeightInBoard() const;
 
-        void populateMines();
         void populateBoard();
+        void populateMines();
+        void populateCell();
+
+        int countMinesAround(sf::Vector2i cell_postion);
+        bool isvalidCellPosition(sf::Vector2i cell_position);
 
     public:
         Board();

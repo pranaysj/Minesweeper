@@ -60,6 +60,7 @@ namespace Gameplay {
 	void Board::populateBoard()
 	{
 		populateMines();
+		populateCell();
 	}
 
 	void Board::populateMines()
@@ -78,6 +79,57 @@ namespace Gameplay {
 				++mines_placed;
 			}
 		}
+	}
+
+	void Board::populateCell()
+	{
+		for (int row = 0; row < numberOfRows; ++row) {
+
+			for (int col = 0; col < numberOfColumns; ++col)
+			{
+				if (cell[row][col]->getCellType() != CellType::MINE)
+				{
+					int mines_around = countMinesAround(sf::Vector2i(row, col));
+					/*printf("%d : ", mines_around);
+					printf("%d\n", row);*/
+					cell[row][col]->setCellType(static_cast<CellType>(mines_around));
+				}
+			}
+		}
+	}
+
+	int Board::countMinesAround(sf::Vector2i cell_postion)
+	{
+		int mines_around = 0;
+
+		for (int a = -1; a <= 1; a++) //Check for ++a
+		{
+			for (int b = -1; b <= 1; b++)
+			{
+
+				if (a == 0 && b == 0 || 
+					/*This ensures that if the neighboring cell position is out of bounds,
+					we skip that iteration to prevent accessing an invalid memory location.*/
+					!isvalidCellPosition(sf::Vector2i(cell_postion.x + a, cell_postion.y + b)))
+					
+					/*If either of the two conditions is true,
+					the continue statement skips the rest of the loop body and moves to the next iteration.*/
+					continue;
+
+				if (cell[cell_postion.x + a][cell_postion.y + b]->getCellType() == CellType::MINE) {
+					mines_around++;
+				}
+
+				printf("%d " ,mines_around);
+			}
+		}
+
+		return mines_around;
+	}
+
+	bool Board::isvalidCellPosition(sf::Vector2i cell_position)
+	{
+		return (cell_position.x >= 0 && cell_position.y > 0 && cell_position.x < numberOfColumns && cell_position.y < numberOfRows);
 	}
 
 	void Board::render(sf::RenderWindow& window)
