@@ -14,7 +14,7 @@ namespace Gameplay {
 
 	void GameplayManager::initializeVariables()
 	{
-		board = new Board();
+		board = new Board(this);
 	}
 
 	void GameplayManager::initializeBackgroundImage()
@@ -27,6 +27,11 @@ namespace Gameplay {
 		background_sprite.setColor(sf::Color(255, 255, 255, background_alpha));
 	}
 
+	bool GameplayManager::hasGameEnded()
+	{
+		return game_result != GameResult::NONE;
+	}
+
 	GameplayManager::~GameplayManager()
 	{
 		delete(board);
@@ -34,12 +39,17 @@ namespace Gameplay {
 
 	void GameplayManager::update(Event::EventPollingManager& event_manager)
 	{
-		board->update(event_manager);
+		if(!hasGameEnded())
+			board->update(event_manager);
 	}
 
 	void GameplayManager::render(sf::RenderWindow& window)
 	{
 		window.draw(background_sprite);
 		board->render(window);
+	}
+	void GameplayManager::setGameResult(GameResult game_result)
+	{
+		this->game_result = game_result;
 	}
 }

@@ -2,8 +2,11 @@
 #include <SFML/Graphics.hpp>
 #include<random>
 #include "../../header/GameLoop/Gameplay/Cell.h"
+#include "../../header/GameLoop/Gameplay/GameplayManager.h"
 
 namespace Gameplay {
+
+    class GameplayManager;
 
 	class Board {
     private:
@@ -29,9 +32,11 @@ namespace Gameplay {
 
         Cell* cell[numberOfRows][numberOfColumns];
 
-        void initialize();
+        GameplayManager* gameplay_manager;
+
+        void initialize(GameplayManager* gameplay_manager);
         void initializeBoardImage();
-        void initializeVariables();
+        void initializeVariables(GameplayManager* gameplay_manager);
 
         void createBoard();
 
@@ -52,9 +57,11 @@ namespace Gameplay {
 
         void processCellType(sf::Vector2i cell_position);
         void processEmptyType(sf::Vector2i cell_position);
+        void processMineCell(sf::Vector2i cell_position);
+
 
     public:
-        Board();
+        Board(GameplayManager* gameplay_manager);
 
         void update(Event::EventPollingManager& event_manager);
 
@@ -62,6 +69,7 @@ namespace Gameplay {
 
         void onCellButtonClicked(sf::Vector2i cell_position, MouseButtonType mouse_button_type);
 
+        void revealAllMines();
 
 	};
 }
