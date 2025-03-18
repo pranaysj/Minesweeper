@@ -82,6 +82,16 @@ namespace Gameplay {
 		return position;
 	}
 
+	bool Cell::canOpenCell()
+	{
+		return (current_cell_state == CellState::HIDDEN);
+	}
+
+	void Cell::open()
+	{
+		setCellState(CellState::OPEN);
+	}
+
 	void Cell::update(Event::EventPollingManager& event_manager)
 	{
 		cell_button->update(event_manager);

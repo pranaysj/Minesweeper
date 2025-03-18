@@ -1,5 +1,6 @@
-#include"../../header/GameLoop/Gameplay/Board.h"
 #include <iostream>
+#include"../../header/GameLoop/Gameplay/Board.h"
+#include"../../header/Sound/SoundManager.h"
 
 namespace Gameplay {
 	Board::Board()
@@ -154,10 +155,19 @@ namespace Gameplay {
 	void Board::onCellButtonClicked(sf::Vector2i cell_position, MouseButtonType mouse_button_type)
 	{
 		if (mouse_button_type == MouseButtonType::LEFT_MOUSE_BUTTON) {
-
+			Sound::SoundManager::PlaySound(Sound::SoundType::BUTTON_CLICK); //play click sound
+			openCell(cell_position);
 		}
 		else if (mouse_button_type == MouseButtonType::RIGHT_MOUSE_BUTTON) {
 
 		}
+	}
+	void Board::openCell(sf::Vector2i position)
+	{
+		if (!cell[position.x][position.y]->canOpenCell()) {
+			return;
+		}
+
+		cell[position.x][position.y]->open();
 	}
 }

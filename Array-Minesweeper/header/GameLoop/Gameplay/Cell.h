@@ -73,5 +73,8 @@ namespace Gameplay {
 
         sf::Vector2i getCellPosition();
 
+        bool canOpenCell();
+        void open();
+
 	};
 }
