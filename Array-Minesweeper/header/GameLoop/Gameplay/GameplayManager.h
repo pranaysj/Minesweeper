@@ -1,9 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include"../../header/GameLoop/Gameplay/Board.h"
+#include"../../header/Event/EventPollingManager.h"
 
 namespace Gameplay {
 	
+
 	enum class GameResult
 	{
 		NONE,
@@ -18,6 +20,10 @@ namespace Gameplay {
 
 		const float background_alpha = 85.0f;
 
+		const float max_level_duration = 150.0f;
+		//const float game_over_time = 11.0f;
+		float remaining_time;
+
 		sf::Texture background_texture;
 		sf::Sprite background_sprite;
 		std::string background_texture_path = "assets/textures/minesweeper_bg.png";
@@ -30,6 +36,11 @@ namespace Gameplay {
 		GameResult game_result;
 
 		bool hasGameEnded();
+
+		void updateRemainingTime();
+		void processTimeOver();
+
+		void handleGameplay(Event::EventPollingManager& eventManager);
 
 	public:
 

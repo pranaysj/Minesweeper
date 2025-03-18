@@ -1,5 +1,7 @@
-#include "../../header/GameLoop/Gameplay/GameplayManager.h"
 #include <iostream>
+#include "../../header/GameLoop/Gameplay/GameplayManager.h"
+#include "../../header/Time/TimeManager.h"
+
 namespace Gameplay {
 	GameplayManager::GameplayManager()
 	{
@@ -15,6 +17,7 @@ namespace Gameplay {
 	void GameplayManager::initializeVariables()
 	{
 		board = new Board(this);
+		remaining_time = max_level_duration;
 	}
 
 	void GameplayManager::initializeBackgroundImage()
@@ -32,6 +35,20 @@ namespace Gameplay {
 		return game_result != GameResult::NONE;
 	}
 
+	void GameplayManager::updateRemainingTime()
+	{
+		remaining_time -= Time::TimeManager::getDeltaTime();
+		processTimeOver();
+	}
+
+	void GameplayManager::processTimeOver()
+	{
+		if (remaining_time < 0) {
+			remaining_time = 0;
+			setGameResult(GameResult::LOST);
+		}
+	}
+
 	GameplayManager::~GameplayManager()
 	{
 		delete(board);
@@ -39,8 +56,14 @@ namespace Gameplay {
 
 	void GameplayManager::update(Event::EventPollingManager& event_manager)
 	{
-		if(!hasGameEnded())
-			board->update(event_manager);
+		if (!hasGameEnded())
+			handleGameplay(event_manager);
+	}
+
+	void GameplayManager::handleGameplay(Event::EventPollingManager& event_manager)
+	{
+		updateRemainingTime();
+		board->update(event_manager);
 	}
 
 	void GameplayManager::render(sf::RenderWindow& window)
