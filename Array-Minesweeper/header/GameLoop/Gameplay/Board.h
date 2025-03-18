@@ -45,6 +45,11 @@ namespace Gameplay {
         int countMinesAround(sf::Vector2i cell_postion);
         bool isvalidCellPosition(sf::Vector2i cell_position);
 
+        void openCell(sf::Vector2i position);
+        
+        int flaggedCells;
+        void toggleFlag(sf::Vector2i position);
+
     public:
         Board();
 
@@ -54,7 +59,6 @@ namespace Gameplay {
 
         void onCellButtonClicked(sf::Vector2i cell_position, MouseButtonType mouse_button_type);
 
-        void openCell(sf::Vector2i position);
 
 	};
 }
