@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include<random>
 #include "../../header/GameLoop/Gameplay/Cell.h"
 
 namespace Gameplay {
@@ -17,6 +18,11 @@ namespace Gameplay {
         const float horizontalCellPadding = 115.f;
         const float verticalCellPadding = 329.f;
 
+        std::default_random_engine randomEngine;
+        std::random_device randomDevice;
+
+        int minesCount = 9;
+
         const std::string boardTexturePath = "assets/textures/board.png";
         sf::Texture boardTexture;
         sf::Sprite boardSprite;
@@ -25,11 +31,15 @@ namespace Gameplay {
 
         void initialize();
         void initializeBoardImage();
+        void initializeVariables();
 
         void createBoard();
 
         float getCellWidthInBoard() const;
         float getCellHeightInBoard() const;
+
+        void populateMines();
+        void populateBoard();
 
     public:
         Board();
