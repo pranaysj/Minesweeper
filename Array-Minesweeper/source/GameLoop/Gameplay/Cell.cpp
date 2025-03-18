@@ -1,19 +1,35 @@
-#include"../../header/GameLoop/Gameplay/Cell.h"
 #include<iostream>
+#include"../../header/GameLoop/Gameplay/Cell.h"
+#include"../../header/GameLoop/Gameplay/Board.h"
 
 namespace Gameplay {
 
-	Cell::Cell(float width, float height, sf::Vector2i position)
+	Cell::Cell(float width, float height, sf::Vector2i position, Board* board)
 	{
-		initialize(width, height, position);
+		initialize(width, height, position, board);
 	}
 
-	void Cell::initialize(float width, float height, sf::Vector2i position)
+	void Cell::initialize(float width, float height, sf::Vector2i position, Board* board)
 	{
 		this->position = position;
-		current_cell_state = CellState::OPEN;
+		this->board = board;
+		current_cell_state = CellState::HIDDEN;
 		sf::Vector2f cellScreenPosition = getCellScreenPosition(width, height);
 		cell_button = new Button(cell_texture_path, cellScreenPosition, width * slice_count , height);
+
+		registeCellButtonCallback();
+	}
+
+	void Cell::registeCellButtonCallback()
+	{
+		cell_button->registerCallbackFunction([this](MouseButtonType button_type) {
+			cellButtonCallback(button_type);
+		});
+	}
+
+	void Cell::cellButtonCallback(MouseButtonType button_type)
+	{
+		board->onCellButtonClicked(getCellPosition(), button_type);
 	}
 
 	sf::Vector2f Cell::getCellScreenPosition(float width, float height) const
@@ -59,6 +75,16 @@ namespace Gameplay {
 			cell_button->setTexturesRect(sf::IntRect(11 * tile_size, 0, tile_size, tile_size));
 			break;
 		}
+	}
+
+	sf::Vector2i Cell::getCellPosition()
+	{
+		return position;
+	}
+
+	void Cell::update(Event::EventPollingManager& event_manager)
+	{
+		cell_button->update(event_manager);
 	}
 
 	void Cell::render(sf::RenderWindow& window)

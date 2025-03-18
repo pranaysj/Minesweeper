@@ -7,6 +7,17 @@ namespace Gameplay {
 		initialize();
 	}
 
+	void Board::update(Event::EventPollingManager& event_manager)
+	{
+		for (int row = 0; row < numberOfRows; ++row)
+		{
+			for (int col = 0; col < numberOfColumns; ++col)
+			{
+				cell[row][col]->update(event_manager);
+			}
+		}
+	}
+
 	void Board::initialize()
 	{
 		initializeBoardImage();
@@ -42,7 +53,7 @@ namespace Gameplay {
 		{
 			for (int col = 0; col < numberOfColumns; ++col)
 			{
-				cell[row][col] = new Cell(cellWidth, cellHeight, sf::Vector2i(row, col));
+				cell[row][col] = new Cell(cellWidth, cellHeight, sf::Vector2i(row, col), this);
 			}
 		}
 	}
@@ -90,8 +101,6 @@ namespace Gameplay {
 				if (cell[row][col]->getCellType() != CellType::MINE)
 				{
 					int mines_around = countMinesAround(sf::Vector2i(row, col));
-					/*printf("%d : ", mines_around);
-					printf("%d\n", row);*/
 					cell[row][col]->setCellType(static_cast<CellType>(mines_around));
 				}
 			}
@@ -119,8 +128,6 @@ namespace Gameplay {
 				if (cell[cell_postion.x + a][cell_postion.y + b]->getCellType() == CellType::MINE) {
 					mines_around++;
 				}
-
-				printf("%d " ,mines_around);
 			}
 		}
 
@@ -142,6 +149,15 @@ namespace Gameplay {
 			{
 				cell[row][col]->render(window);
 			}
+		}
+	}
+	void Board::onCellButtonClicked(sf::Vector2i cell_position, MouseButtonType mouse_button_type)
+	{
+		if (mouse_button_type == MouseButtonType::LEFT_MOUSE_BUTTON) {
+
+		}
+		else if (mouse_button_type == MouseButtonType::RIGHT_MOUSE_BUTTON) {
+
 		}
 	}
 }

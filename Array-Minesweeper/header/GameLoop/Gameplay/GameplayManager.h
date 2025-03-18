@@ -25,6 +25,8 @@ namespace Gameplay {
 		GameplayManager();
 		~GameplayManager();
 
+		void update(Event::EventPollingManager& event_manager);
+
 		void render(sf::RenderWindow& window);
 	};
 }

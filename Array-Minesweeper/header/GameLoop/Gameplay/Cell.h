@@ -27,9 +27,12 @@ namespace Gameplay {
         MINE,
     };
 
+    class Board;
 	class Cell {
 
 	private:
+
+        Board* board;
 
         CellState current_cell_state;
         CellType cell_type;
@@ -44,16 +47,19 @@ namespace Gameplay {
         const float cell_left_offset = 583.f;
 
 		Button* cell_button;
+        void registeCellButtonCallback();
+        void cellButtonCallback(MouseButtonType button_type);
 
-
-		void initialize(float width, float height, sf::Vector2i position);
+		void initialize(float width, float height, sf::Vector2i position, Board* board);
 
         sf::Vector2f getCellScreenPosition(float width, float height) const;
 
 	public:
 
-		Cell(float width, float height, sf::Vector2i position);
+		Cell(float width, float height, sf::Vector2i position, Board* board);
 		~Cell() = default;
+
+        void update(Event::EventPollingManager& event_manager);
 
 		void render(sf::RenderWindow& window);
 
@@ -64,5 +70,8 @@ namespace Gameplay {
         CellType getCellType();
 
         void setCellTexture();
+
+        sf::Vector2i getCellPosition();
+
 	};
 }

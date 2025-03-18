@@ -32,6 +32,11 @@ namespace Gameplay {
 		delete(board);
 	}
 
+	void GameplayManager::update(Event::EventPollingManager& event_manager)
+	{
+		board->update(event_manager);
+	}
+
 	void GameplayManager::render(sf::RenderWindow& window)
 	{
 		window.draw(background_sprite);

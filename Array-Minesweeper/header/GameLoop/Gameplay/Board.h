@@ -48,6 +48,10 @@ namespace Gameplay {
     public:
         Board();
 
+        void update(Event::EventPollingManager& event_manager);
+
         void render(sf::RenderWindow& window);
+
+        void onCellButtonClicked(sf::Vector2i cell_position, MouseButtonType mouse_button_type);
 	};
 }
