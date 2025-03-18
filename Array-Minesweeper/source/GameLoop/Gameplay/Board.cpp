@@ -24,7 +24,7 @@ namespace Gameplay {
 		initializeBoardImage();
 		initializeVariables(gameplay_manager);
 		createBoard();
-		populateBoard();
+		boardState = BoardState::FIRST_CELL;
 	}
 
 	void Board::initializeBoardImage()
@@ -70,13 +70,13 @@ namespace Gameplay {
 		return (boardHeight - verticalCellPadding) / numberOfRows;
 	}
 
-	void Board::populateBoard()
+	void Board::populateBoard(sf::Vector2i cell_position)
 	{
-		populateMines();
+		populateMines(cell_position);
 		populateCell();
 	}
 
-	void Board::populateMines()
+	void Board::populateMines(sf::Vector2i first_cell_position)
 	{
 		std::uniform_int_distribution<int> x_dist(0, numberOfColumns - 1);
 		std::uniform_int_distribution<int> y_dist(0, numberOfRows - 1);
@@ -87,10 +87,11 @@ namespace Gameplay {
 			int x = x_dist(randomEngine);
 			int y = y_dist(randomEngine);
 
-			if (cell[x][y]->getCellType() != CellType::MINE) {
-				cell[x][y]->setCellType(CellType::MINE);
-				++mines_placed;
-			}
+			if (isInvalidMinePosition(first_cell_position, x, y))
+				continue;
+
+			cell[x][y]->setCellType(CellType::MINE);
+			++mines_placed;
 		}
 	}
 
@@ -170,7 +171,10 @@ namespace Gameplay {
 			return;
 		}
 
-		//cell[position.x][position.y]->open();
+		if (boardState == BoardState::FIRST_CELL) {
+			populateBoard(position);
+			boardState = BoardState::PLAYING;
+		}
 
 		processCellType(position);
 	}
@@ -246,6 +250,12 @@ namespace Gameplay {
 		revealAllMines();
 	}
 
+	bool Board::isInvalidMinePosition(sf::Vector2i first_cell_position, int x, int y)
+	{
+		return (x == first_cell_position.x && y == first_cell_position.y) || 
+			cell[x][y]->getCellType() == CellType::MINE;
+	}
+
 	void Board::revealAllMines()
 	{
 		for (int row = 0; row < numberOfRows; row++)
@@ -258,5 +268,14 @@ namespace Gameplay {
 				}
 			}
 		}
+	}
+
+	BoardState Board::getBoardState()
+	{
+		return boardState;
+	}
+	void Board::setBoardState(BoardState state)
+	{
+		boardState = state;
 	}
 }

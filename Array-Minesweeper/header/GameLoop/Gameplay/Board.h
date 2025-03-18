@@ -8,6 +8,13 @@ namespace Gameplay {
 
     class GameplayManager;
 
+    enum class BoardState
+    {
+        FIRST_CELL,
+        PLAYING,
+        COMPLETED,
+    };
+
 	class Board {
     private:
 
@@ -34,6 +41,8 @@ namespace Gameplay {
 
         GameplayManager* gameplay_manager;
 
+        BoardState boardState;
+
         void initialize(GameplayManager* gameplay_manager);
         void initializeBoardImage();
         void initializeVariables(GameplayManager* gameplay_manager);
@@ -43,8 +52,8 @@ namespace Gameplay {
         float getCellWidthInBoard() const;
         float getCellHeightInBoard() const;
 
-        void populateBoard();
-        void populateMines();
+        void populateBoard(sf::Vector2i cell_position);
+        void populateMines(sf::Vector2i first_cell_position);
         void populateCell();
 
         int countMinesAround(sf::Vector2i cell_postion);
@@ -59,6 +68,7 @@ namespace Gameplay {
         void processEmptyType(sf::Vector2i cell_position);
         void processMineCell(sf::Vector2i cell_position);
 
+        bool isInvalidMinePosition(sf::Vector2i first_cell_position, int x, int y);
 
     public:
         Board(GameplayManager* gameplay_manager);
@@ -70,6 +80,9 @@ namespace Gameplay {
         void onCellButtonClicked(sf::Vector2i cell_position, MouseButtonType mouse_button_type);
 
         void revealAllMines();
+
+        BoardState getBoardState();
+        void setBoardState(BoardState state);
 
 	};
 }
