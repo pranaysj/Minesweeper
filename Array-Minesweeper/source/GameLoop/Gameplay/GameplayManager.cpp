@@ -18,6 +18,7 @@ namespace Gameplay {
 	void GameplayManager::initializeVariables()
 	{
 		board = new Board(this);
+		gameplay_ui = new GameplayUI(this);
 		remaining_time = max_level_duration;
 	}
 
@@ -65,6 +66,9 @@ namespace Gameplay {
 		{
 			processGameResult();
 		}
+
+		// update the UI
+			gameplay_ui->update(getRemainingMinesCount(), static_cast<int>(remaining_time), event_manager);
 	}
 
 	void GameplayManager::handleGameplay(Event::EventPollingManager& event_manager)
@@ -88,10 +92,16 @@ namespace Gameplay {
 		board->revealAllMines();  // Show where the mines were
 	}
 
+	int GameplayManager::getRemainingMinesCount() const
+	{
+		return board->getRemainingMinesCount();
+	}
+
 	void GameplayManager::render(sf::RenderWindow& window)
 	{
 		window.draw(background_sprite);
 		board->render(window);
+		gameplay_ui->render(window);
 	}
 
 	void GameplayManager::setGameResult(GameResult game_result)

@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include"../../header/GameLoop/Gameplay/Board.h"
 #include"../../header/Event/EventPollingManager.h"
+#include"../../header/UI/GameplayUI.h"
 
 namespace Gameplay {
 	
@@ -13,10 +14,13 @@ namespace Gameplay {
 		LOST
 	};
 
+	using namespace UI;
+
 	class GameplayManager {
 	private:
 
 		Board* board;
+		GameplayUI* gameplay_ui;
 
 		const float background_alpha = 85.0f;
 
@@ -44,6 +48,8 @@ namespace Gameplay {
 
 		void gameWon();
 		void gameLost();
+
+		int getRemainingMinesCount() const;
 
 	public:
 
