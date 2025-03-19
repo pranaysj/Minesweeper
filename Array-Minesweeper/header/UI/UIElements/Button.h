@@ -23,7 +23,6 @@ namespace UI {
 			void initialize(const std::string &texture_path, const  sf::Vector2f &postion, float width, float height);
 
 			bool isMouseOnSprite(Event::EventPollingManager& event_manager);
-			void handleButtonInteraction(Event::EventPollingManager& event_manager);
 
 
 		public:
@@ -33,6 +32,8 @@ namespace UI {
 
 			void render(sf::RenderWindow& window);
 
+			void handleButtonInteraction(Event::EventPollingManager& event_manager);
+			
 			void setTexturesRect(const sf::IntRect& rect);
 
 			void registerCallbackFunction(CallbackFunction button_callback);

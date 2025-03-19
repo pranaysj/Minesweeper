@@ -130,4 +130,12 @@ namespace Gameplay {
 			break;
 		}
 	}
+
+	void GameplayManager::restartGame()
+	{
+		game_result = GameResult::NONE;  // Clear previous result
+		board->reset();  // Reset the board
+		Time::TimeManager::initialize();  // Reset timer
+		remaining_time = max_level_duration;  // Full time again
+	}
 }

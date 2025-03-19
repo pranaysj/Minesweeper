@@ -64,5 +64,8 @@ namespace Gameplay {
 
 		void checkGameWin();
 		void processGameResult();
+
+		void restartGame();
+
 	};
 }

@@ -1,6 +1,7 @@
 #include <iostream>
 #include "../../header/UI/GameplayUI.h"
 #include "../../header/GameLoop/Gameplay/GameplayManager.h"
+#include "../../header/Sound/SoundManager.h"
 
 namespace UI {
 	GameplayUI::GameplayUI(GameplayManager* gameplay_manager)
@@ -13,6 +14,8 @@ namespace UI {
 		this->gameplay_manager = gameplay_manager;
 		loadFonts();
 		initializeTexts();
+		initializeButton();
+		registerButtonCallback();
 	}
 
 	void GameplayUI::initializeTexts()
@@ -34,6 +37,9 @@ namespace UI {
 
 	void GameplayUI::initializeButton()
 	{
+		restartButton = new Button(restartButtonTexturePath,
+			sf::Vector2f(restartButtonLeftOffset, restartButtonTopOffset),
+			buttonWidth, buttonHeight);
 	}
 
 	void GameplayUI::loadFonts()
@@ -47,21 +53,30 @@ namespace UI {
 
 	void GameplayUI::registerButtonCallback()
 	{
+		restartButton->registerCallbackFunction([this](UIElements::MouseButtonType buttonType) {
+			RestartButtonCallback(buttonType);
+			});
 	}
 
 	void GameplayUI::RestartButtonCallback(MouseButtonType mouse_button_type)
 	{
+		if (mouse_button_type == MouseButtonType::LEFT_MOUSE_BUTTON) {
+			Sound::SoundManager::PlaySound(Sound::SoundType::BUTTON_CLICK);
+			gameplay_manager->restartGame();  // Restart the game
+		}
 	}
 
 	void GameplayUI::update(int remaining_mines, int remaining_time, EventPollingManager& eventManager)
 	{
 		mineText.setString(std::to_string(remaining_mines));
 		timeText.setString(std::to_string(remaining_time));
+		restartButton->handleButtonInteraction(eventManager);
 	}
 
 	void GameplayUI::render(sf::RenderWindow& window)
 	{
 		window.draw(mineText);
 		window.draw(timeText);
+		restartButton->render(window);
 	}
 }

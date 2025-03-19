@@ -78,5 +78,7 @@ namespace Gameplay {
 
         void toggleFlag();
 
+        void reset();
+
 	};
 }

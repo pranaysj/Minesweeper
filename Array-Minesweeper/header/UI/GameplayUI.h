@@ -62,5 +62,6 @@ namespace UI
 
         void update(int remaining_mines, int remaining_time, EventPollingManager& eventManager);
         void render(sf::RenderWindow& window);
+
     };
 }

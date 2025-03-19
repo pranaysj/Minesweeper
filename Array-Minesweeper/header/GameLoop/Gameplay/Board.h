@@ -89,5 +89,7 @@ namespace Gameplay {
 
         int getRemainingMinesCount() const;
 
+        void reset();
+
 	};
 }
