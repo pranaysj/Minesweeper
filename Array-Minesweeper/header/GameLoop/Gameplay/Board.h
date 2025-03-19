@@ -83,6 +83,9 @@ namespace Gameplay {
 
         BoardState getBoardState();
         void setBoardState(BoardState state);
+        
+        bool areAllCellsOpen();
+        void flagAllMine();
 
 	};
 }

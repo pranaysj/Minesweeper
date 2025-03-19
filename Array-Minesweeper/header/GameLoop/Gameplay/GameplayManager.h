@@ -42,6 +42,9 @@ namespace Gameplay {
 
 		void handleGameplay(Event::EventPollingManager& eventManager);
 
+		void gameWon();
+		void gameLost();
+
 	public:
 
 		GameplayManager();
@@ -52,5 +55,8 @@ namespace Gameplay {
 		void render(sf::RenderWindow& window);
 
 		void setGameResult(GameResult game_result);
+
+		void checkGameWin();
+		void processGameResult();
 	};
 }
