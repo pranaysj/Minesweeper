@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include"../../header/GameLoop/Gameplay/Board.h"
 #include"../../header/Event/EventPollingManager.h"
-#include"../../header/UI/GameplayUI.h"
+#include"../../header/UI/GameplayUI/GameplayUI.h"
 
 namespace Gameplay {
 	

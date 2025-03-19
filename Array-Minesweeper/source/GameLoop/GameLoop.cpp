@@ -13,9 +13,11 @@ void GameLoop::initialize()
     window_manager = new GameWindowManager();
     game_window = window_manager->getGameWindow();
     event_manager = new EventPollingManager(game_window);
-    gameplay_manager = new GameplayManager();
 
     splash_screen_manager = new SplashScreenManager(game_window);
+    main_menu_manager = new MainMenuManager(game_window);
+
+    gameplay_manager = new GameplayManager();
 
     // Initialize Sounds:
     Sound::SoundManager::Initialize();
@@ -30,6 +32,7 @@ GameLoop::~GameLoop()
     delete window_manager;
     delete event_manager;
     delete splash_screen_manager;
+    delete main_menu_manager;
     delete gameplay_manager;
 }
 
@@ -45,6 +48,7 @@ void GameLoop::update()
         splash_screen_manager->update();
         break;
     case GameState::MAIN_MENU:
+        main_menu_manager->update(*event_manager); //update the main menu
         break;
     case GameState::GAMEPLAY:
         gameplay_manager->update(*event_manager);
@@ -67,6 +71,7 @@ void GameLoop::render()
         splash_screen_manager->render();
         break;
     case GameState::MAIN_MENU:
+        main_menu_manager->render(); //render the main menu
         break;
     case GameState::GAMEPLAY:
         gameplay_manager->render(*game_window);

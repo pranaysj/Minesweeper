@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include"../../header/Event/EventPollingManager.h"
 #include <functional>
+#include"../../header/Event/EventPollingManager.h"
 
 namespace UI {
 	namespace UIElements {

@@ -62,7 +62,7 @@ namespace Gameplay {
 		{
 			handleGameplay(event_manager);
 		}
-		else if (board->getBoardState() == BoardState::COMPLETED) 
+		else if (board->getBoardState() != BoardState::COMPLETED) 
 		{
 			processGameResult();
 		}
@@ -87,9 +87,9 @@ namespace Gameplay {
 
 	void GameplayManager::gameLost()
 	{
+		board->revealAllMines();  // Show where the mines were
 		Sound::SoundManager::PlaySound(Sound::SoundType::EXPLOSION);  // Boom!
 		board->setBoardState(BoardState::COMPLETED);  // Game over
-		board->revealAllMines();  // Show where the mines were
 	}
 
 	int GameplayManager::getRemainingMinesCount() const
@@ -121,10 +121,10 @@ namespace Gameplay {
 	{
 		switch (game_result) {
 		case GameResult::WON:
-			gameWon();    // Victory! 🎉
+			gameWon();    // Victory!
 			break;
 		case GameResult::LOST:
-			gameLost();   // Game Over! 💥
+			gameLost();   // Game Over!
 			break;
 		default:
 			break;

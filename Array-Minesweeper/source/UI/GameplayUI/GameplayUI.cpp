@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../../header/UI/GameplayUI.h"
+#include "../../header/UI/GameplayUI/GameplayUI.h"
 #include "../../header/GameLoop/Gameplay/GameplayManager.h"
 #include "../../header/Sound/SoundManager.h"
 
