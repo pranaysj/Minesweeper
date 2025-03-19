@@ -23,6 +23,9 @@ namespace UI
         sf::Text mineText;
         sf::Text timeText;
 
+        sf::RectangleShape timeTextBackgroundRect;
+        sf::RectangleShape mineTextBackgroundRect;
+
         // Button element
         Button* restartButton = nullptr;
         bool restartButtonClicked = false;
@@ -34,8 +37,14 @@ namespace UI
         const float mineTextTopOffset = 65.f;
         const float mineTextLeftOffset = 660.f;
 
+        const float mineTextBackgroundTopOffset = 65.f;
+        const float mineTextBackgroundLeftOffset = 660.f;
+
         const float timeTextTopOffset = 65.f;
         const float timeTextLeftOffset = 1090.f;
+
+        const float timeTextBackgroundTopOffset = 65.f;
+        const float timeTextBackgroundLeftOffset = 1090.f;
 
         const float restartButtonTopOffset = 100.f;
         const float restartButtonLeftOffset = 920.f;

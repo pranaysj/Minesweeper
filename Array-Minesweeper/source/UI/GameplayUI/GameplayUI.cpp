@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include "../../header/UI/GameplayUI/GameplayUI.h"
 #include "../../header/GameLoop/Gameplay/GameplayManager.h"
 #include "../../header/Sound/SoundManager.h"
@@ -33,6 +34,15 @@ namespace UI {
 		timeText.setFillColor(textColor);
 		timeText.setPosition(timeTextLeftOffset, timeTextTopOffset);
 		timeText.setString("000");
+
+		timeTextBackgroundRect.setFillColor(sf::Color::Black);
+		timeTextBackgroundRect.setSize(sf::Vector2f(timeText.getGlobalBounds().width + 15.0f, timeText.getGlobalBounds().height + 15.0f));
+		timeTextBackgroundRect.setPosition(timeText.getGlobalBounds().left - 15, timeText.getGlobalBounds().top - 10);
+
+		mineTextBackgroundRect.setFillColor(sf::Color::Black);
+		mineTextBackgroundRect.setSize(sf::Vector2f(mineText.getGlobalBounds().width + 15.0f, mineText.getGlobalBounds().height + 15.0f));
+		mineTextBackgroundRect.setPosition(mineText.getGlobalBounds().left - 15, mineText.getGlobalBounds().top - 10);
+		
 	}
 
 	void GameplayUI::initializeButton()
@@ -50,6 +60,7 @@ namespace UI {
 		if (!dsDigibFont.loadFromFile("assets/fonts/DS_DIGIB.ttf"))
 			std::cerr << "Error loading DS_DIGIB font!" << std::endl;
 	}
+
 
 	void GameplayUI::registerButtonCallback()
 	{
@@ -75,6 +86,9 @@ namespace UI {
 
 	void GameplayUI::render(sf::RenderWindow& window)
 	{
+		window.draw(timeTextBackgroundRect);
+		window.draw(mineTextBackgroundRect);
+
 		window.draw(mineText);
 		window.draw(timeText);
 		restartButton->render(window);
