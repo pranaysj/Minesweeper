@@ -3,7 +3,9 @@
 A terminal-based recreation of the classic **Minesweeper** puzzle game, built from scratch in **C++**. This project was developed to reinforce key programming concepts and explore grid-based game mechanics.
 
 ## 📽️ Demo
-Watch a short gameplay video: [Link to video](https://github.com/user-attachments/assets/2e096223-393f-4c4b-a869-27722d4c60e7)
+> 🎬 *Click the image above to watch the gameplay video.*
+
+https://github.com/user-attachments/assets/0a35dca2-4394-4290-9b1d-85c35c4816c3
 
 ---
 
@@ -30,6 +32,3 @@ Watch a short gameplay video: [Link to video](https://github.com/user-attachment
 
 - **Language:** C++, SFML
 - **Tools:** Visual Studio
-
----
-
